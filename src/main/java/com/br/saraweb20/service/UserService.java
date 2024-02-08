@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.repositories.UserRepository;
+import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,6 +22,6 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 }
