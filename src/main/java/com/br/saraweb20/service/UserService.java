@@ -24,4 +24,8 @@ public class UserService {
 		Optional<User> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public List<User> findByLogin(String login) {
+		return repository.findByLogin(login);
+	}
 }
