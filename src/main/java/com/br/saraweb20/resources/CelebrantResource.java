@@ -14,7 +14,7 @@ import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.service.CelebrantService;
 
 @RestController
-@RequestMapping(value = "/celebrant")
+@RequestMapping(value = "/celebrants")
 public class CelebrantResource {
 	
 	@Autowired

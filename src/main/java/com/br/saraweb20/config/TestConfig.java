@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.Celebrant;
+import com.br.saraweb20.entities.Term;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.entities.enums.ReligiousTitle;
 import com.br.saraweb20.repositories.BookRepository;
 import com.br.saraweb20.repositories.CelebrantRepository;
+import com.br.saraweb20.repositories.TermRepository;
 import com.br.saraweb20.repositories.UserRepository;
 
 @Configuration
@@ -27,6 +29,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private TermRepository termRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -47,5 +52,11 @@ public class TestConfig implements CommandLineRunner{
 		Book b3 = new Book(null, 1, 17);
 		
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3));
+		
+		Term t1 = new Term(null, 150);
+		Term t2 = new Term(null, 151);
+		Term t3 = new Term(null, 152);
+		
+		termRepository.saveAll(Arrays.asList(t1, t2, t3));
 	}
 }
