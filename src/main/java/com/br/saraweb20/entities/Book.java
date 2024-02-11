@@ -1,23 +1,24 @@
 package com.br.saraweb20.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @EqualsAndHashCode
-@Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_book")
@@ -28,8 +29,31 @@ public class Book implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
-	@Column(name = "NUMBER_BOOK", length = 90, nullable = false, unique = false)
+	@Column(name = "NUMBER_BOOK", nullable = false, unique = false)
 	private Integer numberBook;
-	@Column(name = "NUMBER_SHEET", length = 90, nullable = false, unique = false)
+	@Column(name = "NUMBER_SHEET", nullable = false, unique = false)
 	private Integer numberSheet;
+	
+	@OneToMany(mappedBy = "book")
+	@JsonIgnore
+	private Set<Term> terms = new HashSet<>();
+
+	public Book(Long id, Integer numberBook, Integer numberSheet) {
+		super();
+		this.id = id;
+		this.numberBook = numberBook;
+		this.numberSheet = numberSheet;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setNumberBook(Integer numberBook) {
+		this.numberBook = numberBook;
+	}
+
+	public void setNumberSheet(Integer numberSheet) {
+		this.numberSheet = numberSheet;
+	}
 }

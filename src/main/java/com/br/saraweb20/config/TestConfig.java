@@ -53,10 +53,11 @@ public class TestConfig implements CommandLineRunner{
 		
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3));
 		
-		Term t1 = new Term(null, 150);
-		Term t2 = new Term(null, 151);
-		Term t3 = new Term(null, 152);
+		Term t1 = new Term(null, 150, b1);
+		Term t2 = new Term(null, 151, b1);
+		Term t3 = new Term(null, 152, b2);
+		Term t4 = new Term(null, 153, b3);
 		
-		termRepository.saveAll(Arrays.asList(t1, t2, t3));
+		termRepository.saveAll(Arrays.asList(t1, t2, t3, t4));
 	}
 }
