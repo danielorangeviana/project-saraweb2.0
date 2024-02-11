@@ -17,10 +17,14 @@ public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	private String name;
+	private String cpf;
 	private String login;
 	
 	public UserDTO(User obj) {
 		id = obj.getId();
+		name = obj.getName();
+		cpf = obj.getCpf();
 		login = obj.getLogin();
 	}
 }

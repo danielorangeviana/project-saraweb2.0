@@ -26,8 +26,12 @@ public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "ID")
 	private Long id;
+	@Column(name = "NAME", length = 90, nullable = false, unique = false)
+	private String name;
+	@Column(name = "CPF", length = 14, nullable = false, unique = true)
+	private String cpf;
 	@Column(name = "LOGIN", length = 30, nullable = false, unique = true)
 	private String login;
 	@Column(name = "PASSWORD", length = 10, nullable = false, unique = false)
