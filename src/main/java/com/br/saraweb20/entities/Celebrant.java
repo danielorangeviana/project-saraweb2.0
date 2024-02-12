@@ -1,7 +1,6 @@
 package com.br.saraweb20.entities;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.br.saraweb20.entities.enums.ReligiousTitle;
 
@@ -11,7 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_celebrant")
 public class Celebrant implements Serializable{
@@ -25,9 +28,6 @@ public class Celebrant implements Serializable{
 	private String name;
 	
 	private Integer religiousTitle;
-
-	public Celebrant() {
-	}
 
 	public Celebrant(Long id, String name, ReligiousTitle religiousTitle) {
 		super();
@@ -60,22 +60,5 @@ public class Celebrant implements Serializable{
 		if (religiousTitle != null) {
 			this.religiousTitle = religiousTitle.getCode();
 		}
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Celebrant other = (Celebrant) obj;
-		return Objects.equals(id, other.id);
 	}
 }
