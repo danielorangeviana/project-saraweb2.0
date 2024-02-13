@@ -27,20 +27,28 @@ public class BaptismData implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ID_BAPTISM", nullable = false, unique = true)
 	private Long id;
+	
 	@Column(name = "NAME_CHILDREN", length = 90, nullable = false, unique = false)
 	private String nameChildren;
+	
 	@Column(name = "DATE_BIRTH", nullable = false, unique = false)
 	private LocalDate dateBirth;
+	
 	@Column(name = "DADDY", length = 90, nullable = false, unique = false)
 	private String daddy;
+	
 	@Column(name = "MOM", length = 90, nullable = false, unique = false)
 	private String mom;
+	
 	@Column(name = "GOD_FATHER", length = 90, nullable = false, unique = false)
 	private String godFather;
+	
 	@Column(name = "GOD_MOTHER", length = 90, nullable = false, unique = false)
 	private String godMother;
+	
 	@Column(name = "DATE_BAPTISM", nullable = false, unique = false)
-	private String dateBaptism;
+	private LocalDate dateBaptism;
+	
 }

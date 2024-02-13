@@ -22,7 +22,7 @@ public class Celebrant implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true)
 	private Long id;
 	@Column(name = "NAME", length = 90, nullable = false, unique = false)
 	private String name;
