@@ -1,14 +1,18 @@
 package com.br.saraweb20.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.br.saraweb20.entities.enums.ReligiousTitle;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,10 @@ public class Celebrant implements Serializable{
 	private String name;
 	
 	private Integer religiousTitle;
+	
+	@OneToMany(mappedBy = "celebrant")
+	@JsonIgnore
+	private Set<BaptismData> baptismData = new HashSet<>();
 
 	public Celebrant(Long id, String name, ReligiousTitle religiousTitle) {
 		super();

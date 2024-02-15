@@ -27,7 +27,7 @@ public class Book implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true)
 	private Long id;
 	@Column(name = "NUMBER_BOOK", nullable = false, unique = false)
 	private Integer numberBook;
@@ -36,7 +36,7 @@ public class Book implements Serializable{
 	
 	@OneToMany(mappedBy = "book")
 	@JsonIgnore
-	private Set<Term> terms = new HashSet<>();
+	private Set<BaptismData> baptismData = new HashSet<>();
 
 	public Book(Long id, Integer numberBook, Integer numberSheet) {
 		super();

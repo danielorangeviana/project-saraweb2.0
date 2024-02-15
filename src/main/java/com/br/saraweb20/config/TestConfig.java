@@ -12,13 +12,11 @@ import org.springframework.context.annotation.Profile;
 import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.Celebrant;
-import com.br.saraweb20.entities.Term;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.entities.enums.ReligiousTitle;
 import com.br.saraweb20.repositories.BaptismDataRepository;
 import com.br.saraweb20.repositories.BookRepository;
 import com.br.saraweb20.repositories.CelebrantRepository;
-import com.br.saraweb20.repositories.TermRepository;
 import com.br.saraweb20.repositories.UserRepository;
 
 @Configuration
@@ -30,9 +28,6 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private BookRepository bookRepository;
-	
-	@Autowired
-	private TermRepository termRepository;
 	
 	@Autowired
 	private CelebrantRepository celebrantRepository;
@@ -57,21 +52,14 @@ public class TestConfig implements CommandLineRunner{
 		
 		bookRepository.saveAll(Arrays.asList(b1, b2, b3));
 		
-		Term t1 = new Term(null, 150, b1);
-		Term t2 = new Term(null, 151, b1);
-		Term t3 = new Term(null, 152, b2);
-		Term t4 = new Term(null, 153, b3);
-		
-		termRepository.saveAll(Arrays.asList(t1, t2, t3, t4));
-		
 		Celebrant c1 = new Celebrant(null, "Jerominho da Silva Santos", ReligiousTitle.CAPELAO);
 		Celebrant c2 = new Celebrant(null, "Pedro Alves da Cunha", ReligiousTitle.PADRE);
 		
 		celebrantRepository.saveAll(Arrays.asList(c1, c2));
 				
-		BaptismData bd1 = new BaptismData(null, "Sofia Alcantara de Orange Viana", LocalDate.parse("23-03-2023", format), "Daniel Orange", "Dryele Alcantara", "Thiago Ribeiro", "Marcela Gomes", LocalDate.parse("21-06-2023", format));
-		BaptismData bd2 = new BaptismData(null, "Mateus Alcantara de Orange Viana", LocalDate.parse("07-06-2023", format), "Daniel Orange", "Dryele Alcantara", "Thiago Ribeiro", "Marcela Gomes", LocalDate.parse("15-08-2023", format));
-		BaptismData bd3 = new BaptismData(null, "Mateus Alcantara de Orange Viana", LocalDate.parse("10-08-2023", format), "Daniel Orange", "Dryele Alcantara", "Thiago Ribeiro", "Marcela Gomes", LocalDate.parse("05-12-2023", format));
+		BaptismData bd1 = new BaptismData(null, 102L, "Sofia Alcantara de Orange Viana", LocalDate.parse("23-03-2023", format), "Daniel Orange", "Dryele Alcantara", "Thiago Ribeiro", "Marcela Gomes", LocalDate.parse("21-06-2023", format), b1, c1);
+		BaptismData bd2 = new BaptismData(null, 105L, "Mateus Alcantara de Orange Viana", LocalDate.parse("07-06-2023", format), "Daniel Orange", "Dryele Alcantara", "Thiago Ribeiro", "Marcela Gomes", LocalDate.parse("15-08-2023", format), b2, c1);
+		BaptismData bd3 = new BaptismData(null, 108L, "Mateus Alcantara de Orange Viana", LocalDate.parse("10-08-2023", format), "Daniel Orange", "Dryele Alcantara", "Thiago Ribeiro", "Marcela Gomes", LocalDate.parse("05-12-2023", format), b3, c2);
 		
 		baptismDataRepository.saveAll(Arrays.asList(bd1, bd2, bd3));
 	}
