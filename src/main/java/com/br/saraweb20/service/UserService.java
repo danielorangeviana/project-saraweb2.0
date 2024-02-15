@@ -28,4 +28,8 @@ public class UserService {
 	public List<User> findByLogin(String login) {
 		return repository.findByLogin(login);
 	}
+	
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
 }
