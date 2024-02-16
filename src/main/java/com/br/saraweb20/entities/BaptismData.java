@@ -32,7 +32,7 @@ public class BaptismData implements Serializable{
 	@Column(name = "ID_BAPTISM", unique = true)
 	private Long id;
 	
-	@Column(name = "TERM", unique = true)
+	@Column(name = "TERM", nullable = false, unique = true)
 	private Long numberTerm;
 	
 	@Column(name = "NAME_CHILDREN", length = 90, nullable = false, unique = false)
@@ -41,7 +41,7 @@ public class BaptismData implements Serializable{
 	@Column(name = "DATE_BIRTH", nullable = false, unique = false)
 	private LocalDate dateBirth;
 	
-	@Column(name = "DADDY", length = 90, nullable = false, unique = false)
+	@Column(name = "DADDY", length = 90, nullable = true, unique = false)
 	private String daddy;
 	
 	@Column(name = "MOM", length = 90, nullable = false, unique = false)

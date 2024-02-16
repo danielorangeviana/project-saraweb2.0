@@ -28,4 +28,8 @@ public class CelebrantService {
 	public List<Celebrant> findByName(String name) {
 		return repository.findByName(name);
 	}
+	
+	public Celebrant insert(Celebrant obj) {
+		return repository.save(obj);
+	}
 }

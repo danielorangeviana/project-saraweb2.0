@@ -28,4 +28,8 @@ public class BaptismDataService {
 	public List<BaptismData> findByName(String nameChildren) {
 		return repository.findByName(nameChildren);
 	}
+	
+	public BaptismData insert(BaptismData obj) {
+		return repository.save(obj);
+	}
 }

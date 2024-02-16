@@ -24,4 +24,8 @@ public class BookService {
 		Optional<Book> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public Book insert (Book obj) {
+		return repository.save(obj);
+	}
 }
