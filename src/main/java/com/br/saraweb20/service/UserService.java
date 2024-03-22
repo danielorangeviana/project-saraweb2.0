@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.saraweb20.entities.User;
@@ -27,12 +28,15 @@ public class UserService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public List<User> findByLogin(String login) {
-		return repository.findByLogin(login);
+	public List<User> findByName(String name) {
+		return repository.findByName(name);
 	}
 	
-	public User insert(User obj) {
-		return repository.save(obj);
+	public User insert(User data) {
+		BCryptPasswordEncoder encryptedPassword = new BCryptPasswordEncoder();
+		String newPassword = encryptedPassword.encode(data.getPassword());
+		data.setPassword(newPassword);
+		return repository.save(data);
 	}
 	
 	public void delete(Long id) {
@@ -52,6 +56,6 @@ public class UserService {
 	
 	private void updateData(User entity, User obj) {
 		entity.setName(obj.getName());
-		entity.setLogin(obj.getLogin());
+		entity.setCpf(obj.getCpf());
 	}
 }

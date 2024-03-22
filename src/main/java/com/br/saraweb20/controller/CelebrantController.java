@@ -1,4 +1,4 @@
-package com.br.saraweb20.resources;
+package com.br.saraweb20.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.br.saraweb20.service.CelebrantService;
 
 @RestController
 @RequestMapping(value = "/celebrants")
-public class CelebrantResource {
+public class CelebrantController {
 	
 	@Autowired
 	private CelebrantService service;

@@ -1,4 +1,4 @@
-package com.br.saraweb20.resources.exceptions;
+package com.br.saraweb20.controller.exceptions;
 
 import java.time.Instant;
 
@@ -15,10 +15,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException exception, HttpServletRequest request) {
 		String error = "Resource not found";
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(Instant.now(), status.value(), error, exception.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	

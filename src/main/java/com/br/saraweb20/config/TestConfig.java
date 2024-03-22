@@ -14,6 +14,7 @@ import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.entities.enums.ReligiousTitle;
+import com.br.saraweb20.entities.enums.UserRoles;
 import com.br.saraweb20.repositories.BaptismDataRepository;
 import com.br.saraweb20.repositories.BookRepository;
 import com.br.saraweb20.repositories.CelebrantRepository;
@@ -40,9 +41,9 @@ public class TestConfig implements CommandLineRunner{
 		
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		
-		User u1 = new User(null, "Daniel Orange", "123.456.678-98", "orangedwcov", "123456");
-		User u2 = new User(null, "Dryele Ribeiro", "345.123.567-09", "dryelewdar", "654321");
-		User u3 = new User(null, "Deivson Correa", "098.765.432-12", "deivsondcc", "1234");
+		User u1 = new User(null, "Daniel Orange", "123.456.678-98", "123456", UserRoles.ADMIN);
+		User u2 = new User(null, "Dryele Ribeiro", "345.123.567-09", "654321", UserRoles.USER);
+		User u3 = new User(null, "Deivson Correa", "098.765.432-12", "1234", UserRoles.USER);
 		
 		userRepository.saveAll(Arrays.asList(u1, u2, u3));
 		

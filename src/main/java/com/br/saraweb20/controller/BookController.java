@@ -1,4 +1,4 @@
-package com.br.saraweb20.resources;
+package com.br.saraweb20.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -10,40 +10,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.br.saraweb20.entities.BaptismData;
-import com.br.saraweb20.service.BaptismDataService;
+import com.br.saraweb20.entities.Book;
+import com.br.saraweb20.service.BookService;
 
 @RestController
-@RequestMapping(value = "/baptisms")
-public class BaptismDataResource {
+@RequestMapping(value = "/books")
+public class BookController {
 	
 	@Autowired
-	private BaptismDataService service;
+	private BookService service;
 	
 	@GetMapping
-	public ResponseEntity<List<BaptismData>> findAll() {
-		List<BaptismData> list = service.findAll();
+	public ResponseEntity<List<Book>> findAll() {
+		List<Book> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<BaptismData> findById(@PathVariable Long id) {
-		BaptismData obj = service.findById(id);
+	public ResponseEntity<Book> findById(@PathVariable Long id) {
+		Book obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping(value = "findByName")
-	public ResponseEntity<List<BaptismData>> findByName(@RequestParam(name = "nameChildren") String nameChildren) {
-		List<BaptismData> list = service.findByName(nameChildren.trim().toUpperCase());
-		return ResponseEntity.ok().body(list);
-	}
-	
 	@PostMapping
-	public ResponseEntity<BaptismData> insert(@RequestBody BaptismData obj) {
+	public ResponseEntity<Book> insert(@RequestBody Book obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
