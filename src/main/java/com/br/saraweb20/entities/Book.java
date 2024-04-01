@@ -27,11 +27,13 @@ public class Book implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", nullable = false, unique = true)
+	@Column(name = "ID")
 	private Long id;
-	@Column(name = "NUMBER_BOOK", nullable = false, unique = false)
+	
+	@Column(name = "NUMBER_BOOK")
 	private Integer numberBook;
-	@Column(name = "NUMBER_SHEET", nullable = false, unique = false)
+	
+	@Column(name = "NUMBER_SHEET")
 	private Integer numberSheet;
 	
 	@OneToMany(mappedBy = "book")

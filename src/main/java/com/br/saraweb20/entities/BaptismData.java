@@ -29,31 +29,31 @@ public class BaptismData implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_BAPTISM", unique = true)
+	@Column(name = "ID_BAPTISM")
 	private Long id;
 	
-	@Column(name = "TERM", nullable = false, unique = true)
+	@Column(name = "TERM")
 	private Long numberTerm;
 	
-	@Column(name = "NAME_CHILDREN", length = 90, nullable = false, unique = false)
+	@Column(name = "NAME_CHILDREN")
 	private String nameChildren;
 	
-	@Column(name = "DATE_BIRTH", nullable = false, unique = false)
+	@Column(name = "DATE_BIRTH")
 	private LocalDate dateBirth;
 	
-	@Column(name = "DADDY", length = 90, nullable = true, unique = false)
+	@Column(name = "DADDY")
 	private String daddy;
 	
-	@Column(name = "MOM", length = 90, nullable = false, unique = false)
+	@Column(name = "MOM")
 	private String mom;
 	
-	@Column(name = "GOD_FATHER", length = 90, nullable = false, unique = false)
+	@Column(name = "GOD_FATHER")
 	private String godFather;
 	
-	@Column(name = "GOD_MOTHER", length = 90, nullable = false, unique = false)
+	@Column(name = "GOD_MOTHER")
 	private String godMother;
 	
-	@Column(name = "DATE_BAPTISM", nullable = false, unique = false)
+	@Column(name = "DATE_BAPTISM")
 	private LocalDate dateBaptism;
 	
 	@ManyToOne

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.saraweb20.entities.User;
@@ -33,9 +32,6 @@ public class UserService {
 	}
 	
 	public User insert(User data) {
-		BCryptPasswordEncoder encryptedPassword = new BCryptPasswordEncoder();
-		String newPassword = encryptedPassword.encode(data.getPassword());
-		data.setPassword(newPassword);
 		return repository.save(data);
 	}
 	
