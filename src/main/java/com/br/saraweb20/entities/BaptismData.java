@@ -41,11 +41,11 @@ public class BaptismData implements Serializable{
 	@Column(name = "DATE_BIRTH")
 	private LocalDate dateBirth;
 	
-	@Column(name = "DADDY")
-	private String daddy;
+	@Column(name = "FATHER")
+	private String father;
 	
-	@Column(name = "MOM")
-	private String mom;
+	@Column(name = "MOTHER")
+	private String mother;
 	
 	@Column(name = "GOD_FATHER")
 	private String godFather;

@@ -19,7 +19,7 @@ import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.service.BaptismDataService;
 
 @RestController
-@RequestMapping(value = "/baptism")
+@RequestMapping(value = "/baptisms")
 public class BaptismDataController {
 	
 	@Autowired

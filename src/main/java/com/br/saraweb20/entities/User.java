@@ -2,8 +2,6 @@ package com.br.saraweb20.entities;
 
 import java.io.Serializable;
 
-import com.br.saraweb20.entities.enums.UserRoles;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,10 +35,9 @@ public class User implements Serializable{
 	@Column(name = "CPF")
 	private String cpf;
 	
+	@Column(name = "LOGIN")
+	private String login;
+	
 	@Column(name = "PASSWORD")
 	private String password;
-	
-	@Column(name = "ROLE")
-	private UserRoles role;
-	
 }
