@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 import com.br.saraweb20.entities.User;
 
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
