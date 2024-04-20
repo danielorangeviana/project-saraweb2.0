@@ -1,5 +1,7 @@
 package com.br.saraweb20.dto;
 
+import java.io.Serializable;
+
 import com.br.saraweb20.entities.Book;
 
 import jakarta.validation.constraints.NotNull;
@@ -12,8 +14,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BookDTO {
-	
+public class BookDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	@NotNull(message = "Enter the book number")

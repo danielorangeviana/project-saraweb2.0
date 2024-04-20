@@ -40,7 +40,6 @@ public class Celebrant implements Serializable{
 	private Set<BaptismData> baptismData = new HashSet<>();
 
 	public Celebrant(Long id, String name, ReligiousTitle religiousTitle) {
-		super();
 		this.id = id;
 		this.name = name;
 		setReligiousTitle(religiousTitle);
@@ -63,7 +62,10 @@ public class Celebrant implements Serializable{
 	}
 
 	public ReligiousTitle getReligiousTitle() {
-		return ReligiousTitle.valueOf(religiousTitle);
+		if(religiousTitle != null) {
+			return ReligiousTitle.valueOf(religiousTitle);
+		}
+		return null;
 	}
 
 	public void setReligiousTitle(ReligiousTitle religiousTitle) {

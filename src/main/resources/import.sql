@@ -2,7 +2,7 @@ INSERT INTO tb_user (name, cpf, login, password) VALUES ('Daniel Orange', '123.4
 INSERT INTO tb_user (name, cpf, login, password) VALUES ('Dryele Ribeiro', '345.123.567-09', 'dryeledr', '654321');
 INSERT INTO tb_user (name, cpf, login, password) VALUES ('Deivson Correa', '098.765.432-12', 'deivsondc', '123485');
 
-INSERT INTO tb_book (number_book, number_sheet) VALUES ('1', '15');
+INSERT INTO tb_book (number_book, number_sheet) VALUES ('1', '10');
 INSERT INTO tb_book (number_book, number_sheet) VALUES ('2', '20');
 
 INSERT INTO tb_celebrant (name, religious_title) VALUES ('Jerominho da Silva Santos', '1');

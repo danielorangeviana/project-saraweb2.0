@@ -1,5 +1,7 @@
 package com.br.saraweb20.dto;
 
+import java.io.Serializable;
+
 import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.entities.enums.ReligiousTitle;
 
@@ -14,8 +16,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CelebrantDTO {
-	
+public class CelebrantDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	@NotBlank(message = "Enter the name of celebrant")
