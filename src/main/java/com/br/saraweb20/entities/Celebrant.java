@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +35,7 @@ public class Celebrant implements Serializable{
 	
 	private Integer religiousTitle;
 	
-	@OneToMany(mappedBy = "celebrant")
+	@OneToMany(mappedBy = "celebrant", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<BaptismData> baptismData = new HashSet<>();
 
