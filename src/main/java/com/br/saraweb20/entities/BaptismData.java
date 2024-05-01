@@ -3,7 +3,6 @@ package com.br.saraweb20.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,38 +29,29 @@ public class BaptismData implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_BAPTISM")
 	private Long id;
 	
-	@Column(name = "TERM")
 	private Long numberTerm;
 	
-	@Column(name = "NAME_CHILDREN")
 	private String nameChildren;
 	
-	@Column(name = "DATE_BIRTH")
 	private LocalDate dateBirth;
 	
-	@Column(name = "FATHER")
 	private String father;
 	
-	@Column(name = "MOTHER")
 	private String mother;
 	
-	@Column(name = "GOD_FATHER")
-	private String godFather;
+	private String godfather;
 	
-	@Column(name = "GOD_MOTHER")
-	private String godMother;
+	private String godmother;
 	
-	@Column(name = "DATE_BAPTISM")
 	private LocalDate dateBaptism;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BOOK_ID")
+	@JoinColumn(name = "book_id")
 	private Book book;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CELEBRANT_ID")
+	@JoinColumn(name = "celebrant_id")
 	private Celebrant celebrant;
 }

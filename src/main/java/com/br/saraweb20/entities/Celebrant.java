@@ -7,7 +7,6 @@ import java.util.Set;
 import com.br.saraweb20.entities.enums.ReligiousTitle;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,10 +26,8 @@ public class Celebrant implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private Long id;
 	
-	@Column(name = "NAME")
 	private String name;
 	
 	private Integer religiousTitle;

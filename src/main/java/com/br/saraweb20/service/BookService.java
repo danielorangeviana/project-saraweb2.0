@@ -44,7 +44,7 @@ public class BookService {
 		entity = repository.save(entity);
 		return new BookDTO(entity);
 	}
-
+	
 	@Transactional
 	public BookDTO update(Long id, BookDTO dto) {
 		if(!repository.existsById(id)) {
@@ -69,8 +69,8 @@ public class BookService {
 		try {
 			repository.deleteById(id);
 		}
-		catch (DataIntegrityViolationException e) {
-			throw new DatabaseException("Integrity violation");
+		catch (DataIntegrityViolationException exception) {
+			throw new DatabaseException(exception.getMessage());
 		}
 	}
 	

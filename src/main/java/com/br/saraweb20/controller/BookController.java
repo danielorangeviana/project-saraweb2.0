@@ -24,10 +24,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping(value = "/books")
 public class BookController {
-	
+
 	@Autowired
 	private BookService service;
-	
+
 	@GetMapping
 	public ResponseEntity<Page<BookDTO>> findAll(Pageable pageable) {
 		Page<BookDTO> list = service.findAllPaged(pageable);
@@ -39,12 +39,11 @@ public class BookController {
 		BookDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<BookDTO> insert(@Valid @RequestBody BookDTO dto) {
 		dto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 

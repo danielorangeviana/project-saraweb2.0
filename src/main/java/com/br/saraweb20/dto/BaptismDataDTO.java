@@ -4,19 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.br.saraweb20.entities.BaptismData;
-import com.br.saraweb20.entities.Book;
-import com.br.saraweb20.entities.Celebrant;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class BaptismDataDTO implements Serializable{
@@ -48,8 +44,21 @@ public class BaptismDataDTO implements Serializable{
 	@NotNull(message = "Entry baptism date")
 	private LocalDate dateBaptism;
 	
-	private Book book;
-	private Celebrant celebrant;
+	private BookDTO book;
+	private CelebrantDTO celebrant;
+	
+	public BaptismDataDTO(Long id, Long numberTerm, String nameChildren, LocalDate dateBirth, String father, String mother, String godFather, String godMother, LocalDate dateBaptism) {
+		super();
+		this.id = id;
+		this.numberTerm = numberTerm;
+		this.nameChildren = nameChildren;
+		this.dateBirth = dateBirth;
+		this.father = father;
+		this.mother = mother;
+		this.godFather = godFather;
+		this.godMother = godMother;
+		this.dateBaptism = dateBaptism;
+	}
 	
 	public BaptismDataDTO(BaptismData entity) {
 		id = entity.getId();
@@ -58,10 +67,11 @@ public class BaptismDataDTO implements Serializable{
 		dateBirth = entity.getDateBirth();
 		father = entity.getFather();
 		mother = entity.getMother();
-		godFather = entity.getGodFather();
-		godMother = entity.getGodMother();
+		godFather = entity.getGodfather();
+		godMother = entity.getGodmother();
 		dateBaptism = entity.getDateBaptism();
-		book = entity.getBook();
-		celebrant = entity.getCelebrant();
+		book = new BookDTO(entity.getBook());
+		celebrant = new CelebrantDTO(entity.getCelebrant());
 	}
+		
 }

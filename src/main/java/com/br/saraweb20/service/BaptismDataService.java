@@ -11,8 +11,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.br.saraweb20.dto.BaptismDataDTO;
+import com.br.saraweb20.dto.BookDTO;
+import com.br.saraweb20.dto.CelebrantDTO;
+import com.br.saraweb20.entities.Book;
+import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.repositories.BaptismDataRepository;
+import com.br.saraweb20.repositories.BookRepository;
+import com.br.saraweb20.repositories.CelebrantRepository;
 import com.br.saraweb20.service.exceptions.DatabaseException;
 import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 
@@ -23,6 +29,12 @@ public class BaptismDataService {
 	
 	@Autowired
 	private BaptismDataRepository repository;
+	
+	@Autowired
+	private BookRepository bookRepository;
+	
+	@Autowired
+	private CelebrantRepository celebrantRepository;
 	
 	@Transactional(readOnly = true)
 	public Page<BaptismDataDTO> findAllPaged(Pageable pageable) {
@@ -81,10 +93,20 @@ public class BaptismDataService {
 		entity.setDateBirth(dto.getDateBirth());
 		entity.setFather(dto.getFather());
 		entity.setMother(dto.getMother());
-		entity.setGodFather(dto.getGodFather());
-		entity.setGodMother(dto.getGodMother());
+		entity.setGodfather(dto.getGodFather());
+		entity.setGodmother(dto.getGodMother());
 		entity.setDateBaptism(dto.getDateBaptism());
-		entity.setBook(dto.getBook());
-		entity.setCelebrant(dto.getCelebrant());
+		
+		BookDTO bookDto = dto.getBook();
+		if (bookDto != null) {
+	        Book book = bookRepository.getReferenceById(bookDto.getId());
+	        entity.setBook(book);
+	    }
+		
+		CelebrantDTO celebrantDto = dto.getCelebrant();
+		if (celebrantDto != null) {
+	        Celebrant celebrant = celebrantRepository.getReferenceById(celebrantDto.getId());
+	        entity.setCelebrant(celebrant);
+	    }
 	}
 }
