@@ -19,10 +19,10 @@ public class BookDTO implements Serializable{
 
 	private Long id;
 	
-	@NotNull(message = "Enter the book number")
+	@NotNull(message = "Entry the book number")
 	private Integer numberBook;
 	
-	@NotNull(message = "Enter the sheet number")
+	@NotNull(message = "Entry the sheet number")
 	private Integer numberSheet;
 	
 	public BookDTO(Book entity) {

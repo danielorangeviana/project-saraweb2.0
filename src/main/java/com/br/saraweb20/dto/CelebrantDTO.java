@@ -21,10 +21,10 @@ public class CelebrantDTO implements Serializable{
 
 	private Long id;
 	
-	@NotBlank(message = "Enter the name of celebrant")
+	@NotBlank(message = "Entry the name of celebrant")
 	private String name;
 	
-	@NotNull(message = "Enter the Religious title")
+	@NotNull(message = "Entry the religious title")
 	private ReligiousTitle religiousTitle;
 	
 	public CelebrantDTO(Celebrant entity) {

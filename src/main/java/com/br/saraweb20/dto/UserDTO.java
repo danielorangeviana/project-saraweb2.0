@@ -3,13 +3,23 @@ package com.br.saraweb20.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.br.saraweb20.entities.User;
+
+import jakarta.validation.constraints.NotBlank;
 
 public class UserDTO {
 	
 	private Long id;
+	
+	@NotBlank(message = "Entry the full name")
 	private String name;
+	
+	@CPF(message = "entry valid CPF")
 	private String cpf;
+	
+	@NotBlank(message = "entry nom de guerre or first name plus initials")
 	private String login;
 	
 	Set<RoleDTO> roles = new HashSet<>();

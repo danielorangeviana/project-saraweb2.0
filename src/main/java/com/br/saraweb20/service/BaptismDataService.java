@@ -11,11 +11,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.br.saraweb20.dto.BaptismDataDTO;
+import com.br.saraweb20.dto.BaptismDataMinDTO;
 import com.br.saraweb20.dto.BookDTO;
 import com.br.saraweb20.dto.CelebrantDTO;
+import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.Celebrant;
-import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.repositories.BaptismDataRepository;
 import com.br.saraweb20.repositories.BookRepository;
 import com.br.saraweb20.repositories.CelebrantRepository;
@@ -37,9 +38,9 @@ public class BaptismDataService {
 	private CelebrantRepository celebrantRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<BaptismDataDTO> findAllPaged(Pageable pageable) {
-		Page<BaptismData> list = repository.findAll(pageable);
-		return list.map(x -> new BaptismDataDTO(x));
+	public Page<BaptismDataMinDTO> findAllPaged(String nameChildren, Pageable pageable) {
+		Page<BaptismData> page = repository.searchByName(nameChildren, pageable);
+		return page.map(x -> new BaptismDataMinDTO(x));
 	}
 
 	@Transactional(readOnly = true)
