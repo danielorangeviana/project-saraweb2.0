@@ -23,7 +23,6 @@ public class ResourceExceptionHandler {
 		error.setTimestamp(Instant.now());
 		error.setStatus(status.value());
 		error.setError("Resource not found");
-		error.setMessage(exception.getMessage());
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(error);
 	}
@@ -35,26 +34,17 @@ public class ResourceExceptionHandler {
 		error.setTimestamp(Instant.now());
 		error.setStatus(status.value());
 		error.setError("Database exception");
-		error.setMessage(exception.getMessage());
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(error);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException exception, HttpServletRequest request) {
+	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException exception, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-		ValidationError error = new ValidationError();
-		error.setTimestamp(Instant.now());
-		error.setStatus(status.value());
-		error.setError("Validation exception");
-		error.setMessage(exception.getMessage());
-		error.setPath(request.getRequestURI());
-		
+		ValidationError error = new ValidationError(Instant.now(), status.value(), "Validation exception", request.getRequestURI());
 		exception.getBindingResult().getFieldErrors().forEach(element -> {
 			error.addErrors(element.getField(), element.getDefaultMessage());
 		});
-		
 		return ResponseEntity.status(status).body(error);
 	}
-	
 }

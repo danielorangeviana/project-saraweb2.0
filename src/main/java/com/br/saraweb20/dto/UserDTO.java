@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.br.saraweb20.entities.User;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 public class UserDTO {
 	
@@ -16,31 +17,31 @@ public class UserDTO {
 	@NotBlank(message = "Entry the full name")
 	private String name;
 	
-	@CPF(message = "entry valid CPF")
+	@CPF(message = "Entry valid CPF")
 	private String cpf;
 	
-	@NotBlank(message = "entry nom de guerre or first name plus initials")
-	private String login;
+	@NotBlank(message = "Entry valid email")
+	private String email;
 	
+	@NotEmpty(message = "Must have at least one role")
 	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO() {
-		
 	}
 
-	public UserDTO(Long id, String name, String cpf, String login) {
+	public UserDTO(Long id, String name, String cpf, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
-		this.login = login;
+		this.email = email;
 	}
 
 	public UserDTO(User entity) {
 		id = entity.getId();
 		name = entity.getName();
 		cpf = entity.getCpf();
-		login = entity.getLogin();
+		email = entity.getEmail();
 		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
@@ -68,12 +69,12 @@ public class UserDTO {
 		this.cpf = cpf;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Set<RoleDTO> getRoles() {

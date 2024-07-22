@@ -34,7 +34,7 @@ public class BaptismDataMinDTO implements Serializable{
 	private BookDTO book;
 	private CelebrantDTO celebrant;
 	
-	public BaptismDataMinDTO(Long id, Long numberTerm, String nameChildren, LocalDate dateBirth, String father, String mother, String godFather, String godMother, LocalDate dateBaptism) {
+	public BaptismDataMinDTO(Long id, Long numberTerm, String nameChildren, String mother, LocalDate dateBaptism) {
 		this.id = id;
 		this.numberTerm = numberTerm;
 		this.nameChildren = nameChildren;

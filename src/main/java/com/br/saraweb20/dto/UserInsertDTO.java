@@ -1,5 +1,8 @@
 package com.br.saraweb20.dto;
 
+import com.br.saraweb20.service.validation.UserInsertValid;
+
+@UserInsertValid
 public class UserInsertDTO extends UserDTO {
 
 	private String password;

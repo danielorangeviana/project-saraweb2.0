@@ -8,6 +8,7 @@ import com.br.saraweb20.entities.BaptismData;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +24,8 @@ public class BaptismDataDTO implements Serializable{
 	@NotNull(message = "Entry term number")
 	private Long numberTerm;
 	
-	@NotBlank(message = "Entry the name of children")
+	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
+	@NotBlank(message = "Entry the full name of children")
 	private String nameChildren;
 	
 	@PastOrPresent(message = "The date must be past or present")
@@ -32,19 +34,25 @@ public class BaptismDataDTO implements Serializable{
 	
 	private String father;
 	
-	@NotBlank(message = "Entry the name of the child's mother")
+	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
+	@NotBlank(message = "Entry the full name of the child's mother")
 	private String mother;
 	
-	@NotBlank(message = "Entry the name of the child's godfather")
+	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
+	@NotBlank(message = "Entry the full name of the child's godfather")
 	private String godFather;
 	
-	@NotBlank(message = "Entry the name of the child's godmother")
+	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
+	@NotBlank(message = "Entry the full name of the child's godmother")
 	private String godMother;
 	
 	@NotNull(message = "Entry baptism date")
 	private LocalDate dateBaptism;
 	
+	@NotNull(message = "Must have at least one book")
 	private BookDTO book;
+	
+	@NotNull(message = "Must have at least one celebrant")
 	private CelebrantDTO celebrant;
 	
 	public BaptismDataDTO(Long id, Long numberTerm, String nameChildren, LocalDate dateBirth, String father, String mother, String godFather, String godMother, LocalDate dateBaptism) {

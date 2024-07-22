@@ -34,13 +34,15 @@ public class BaptismDataController {
 	public ResponseEntity<Page<BaptismDataMinDTO>> findAll(
 			@RequestParam(name = "nameChildren", defaultValue = "") String nameChildren, 
 			Pageable pageable) {
+		
 		Page<BaptismDataMinDTO> page = service.findAllPaged(nameChildren, pageable);
+		
 		return ResponseEntity.ok().body(page);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<BaptismDataDTO> findById(@PathVariable Long id) {
-		BaptismDataDTO dto = service.findById(id);
+	public ResponseEntity<BaptismDataMinDTO> findById(@PathVariable Long id) {
+		BaptismDataMinDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	

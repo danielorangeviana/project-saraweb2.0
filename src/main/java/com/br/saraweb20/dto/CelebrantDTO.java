@@ -6,7 +6,6 @@ import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.entities.enums.ReligiousTitle;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,6 @@ public class CelebrantDTO implements Serializable{
 	@NotBlank(message = "Entry the name of celebrant")
 	private String name;
 	
-	@NotNull(message = "Entry the religious title")
 	private ReligiousTitle religiousTitle;
 	
 	public CelebrantDTO(Celebrant entity) {

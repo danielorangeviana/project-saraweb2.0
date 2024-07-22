@@ -1,6 +1,6 @@
-INSERT INTO tb_user (name, cpf, login, password) VALUES ('Daniel Orange', '829.974.070-36', 'danieldo', '$2a$10$6DdmpWwTTqaS/kRGjFrm5eO6VJc40NRvLExk3B5FMTcW3dB8hHtce');
-INSERT INTO tb_user (name, cpf, login, password) VALUES ('Dryele Ribeiro', '478.377.550-81', 'dryeledr', '$2a$10$6DdmpWwTTqaS/kRGjFrm5eO6VJc40NRvLExk3B5FMTcW3dB8hHtce');
-INSERT INTO tb_user (name, cpf, login, password) VALUES ('Deivson Correa', '462.501.020-94', 'deivsondc', '$2a$10$6DdmpWwTTqaS/kRGjFrm5eO6VJc40NRvLExk3B5FMTcW3dB8hHtce');
+INSERT INTO tb_user (name, cpf, email, password) VALUES ('Daniel Orange', '829.974.070-36', 'daniel@gmail.com', '$2a$10$6DdmpWwTTqaS/kRGjFrm5eO6VJc40NRvLExk3B5FMTcW3dB8hHtce');
+INSERT INTO tb_user (name, cpf, email, password) VALUES ('Dryele Ribeiro', '478.377.550-81', 'dryele@gmail.com', '$2a$10$6DdmpWwTTqaS/kRGjFrm5eO6VJc40NRvLExk3B5FMTcW3dB8hHtce');
+INSERT INTO tb_user (name, cpf, email, password) VALUES ('Deivson Correa', '462.501.020-94', 'deivson@gmail.com', '$2a$10$6DdmpWwTTqaS/kRGjFrm5eO6VJc40NRvLExk3B5FMTcW3dB8hHtce');
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');

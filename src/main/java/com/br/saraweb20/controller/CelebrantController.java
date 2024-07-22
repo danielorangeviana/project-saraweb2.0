@@ -40,12 +40,6 @@ public class CelebrantController {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	//@GetMapping(value = "findByName")
-	//public ResponseEntity<List<Celebrant>> findByName(@RequestParam(name = "name") String name) {
-	//	List<Celebrant> list = service.findByName(name.trim().toUpperCase());
-	//	return ResponseEntity.ok().body(list);
-	//}
-	
 	@PostMapping
 	public ResponseEntity<CelebrantDTO> insert(@Valid @RequestBody CelebrantDTO dto) {
 		dto = service.insert(dto);

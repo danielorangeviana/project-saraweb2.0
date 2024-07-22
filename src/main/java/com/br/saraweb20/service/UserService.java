@@ -86,7 +86,7 @@ public class UserService {
 
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());
-		entity.setLogin(dto.getLogin());
+		entity.setEmail(dto.getEmail());
 		
 		entity.getRoles().clear();
 		for (RoleDTO roleDto : dto.getRoles()) {

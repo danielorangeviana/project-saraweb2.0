@@ -44,10 +44,10 @@ public class BaptismDataService {
 	}
 
 	@Transactional(readOnly = true)
-	public BaptismDataDTO findById(Long id) {
+	public BaptismDataMinDTO findById(Long id) {
 		Optional<BaptismData> obj = repository.findById(id);
 		BaptismData entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
-		return new BaptismDataDTO(entity);
+		return new BaptismDataMinDTO(entity);
 	}
 
 	@Transactional

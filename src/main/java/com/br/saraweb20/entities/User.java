@@ -7,6 +7,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,10 +29,11 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String cpf;
 	
-	private String login;
+	@Column(unique = true)
+	private String email;
 	private String password;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_role",
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -41,11 +43,11 @@ public class User implements Serializable {
 		
 	}
 
-	public User(Long id, String name, String cpf, String login, String password) {
+	public User(Long id, String name, String cpf, String email, String password) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
-		this.login = login;
+		this.email = email;
 		this.password = password;
 	}
 
@@ -73,12 +75,12 @@ public class User implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {

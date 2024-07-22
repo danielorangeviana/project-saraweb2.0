@@ -8,4 +8,7 @@ import com.br.saraweb20.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	User findByEmail(String email);
+	
+	User findByCpf(String cpf);
 }
