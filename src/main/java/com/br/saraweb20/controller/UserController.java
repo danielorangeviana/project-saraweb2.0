@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.br.saraweb20.dto.UserDTO;
 import com.br.saraweb20.dto.UserInsertDTO;
+import com.br.saraweb20.dto.UserUpdateDTO;
 import com.br.saraweb20.service.UserService;
 
 import jakarta.validation.Valid;
@@ -42,17 +43,17 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
-		UserDTO newDto = service.insert(dto);
+	public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
+		UserDTO newDTO = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newDto.getId()).toUri();
-		return ResponseEntity.created(uri).body(newDto);
+				.buildAndExpand(newDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDTO);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto) {
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO dto) {
+		UserDTO newDTO = service.update(id, dto);
+		return ResponseEntity.ok().body(newDTO);
 	}
 
 	@DeleteMapping(value = "/{id}")

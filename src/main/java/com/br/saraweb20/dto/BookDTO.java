@@ -6,6 +6,7 @@ import com.br.saraweb20.entities.Book;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class BookDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -26,8 +28,16 @@ public class BookDTO implements Serializable{
 	private Integer numberSheet;
 	
 	public BookDTO(Book entity) {
-		id = entity.getId();
+		setId(entity.getId());
 		numberBook = entity.getNumberBook();
 		numberSheet = entity.getNumberSheet();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

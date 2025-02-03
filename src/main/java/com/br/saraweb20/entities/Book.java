@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Book implements Serializable{
 	
 	private Integer numberSheet;
 	
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<BaptismData> baptismData = new HashSet<>();
 
@@ -41,7 +42,7 @@ public class Book implements Serializable{
 		this.numberBook = numberBook;
 		this.numberSheet = numberSheet;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -53,4 +54,5 @@ public class Book implements Serializable{
 	public void setNumberSheet(Integer numberSheet) {
 		this.numberSheet = numberSheet;
 	}
+
 }

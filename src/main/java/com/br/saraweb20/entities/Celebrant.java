@@ -36,9 +36,9 @@ public class Celebrant implements Serializable{
 	@JsonIgnore
 	private Set<BaptismData> baptismData = new HashSet<>();
 
-	public Celebrant(Long id, String name, ReligiousTitle religiousTitle) {
+	public Celebrant(Long id, String nameCelebrant, ReligiousTitle religiousTitle) {
 		this.id = id;
-		this.name = name;
+		this.name = nameCelebrant;
 		setReligiousTitle(religiousTitle);
 	}
 

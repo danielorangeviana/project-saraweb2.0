@@ -44,7 +44,7 @@ public class CelebrantController {
 	public ResponseEntity<CelebrantDTO> insert(@Valid @RequestBody CelebrantDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
+				.buildAndExpand(dto.getIdCelebrant()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 

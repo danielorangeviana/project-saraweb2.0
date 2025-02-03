@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.br.saraweb20.entities.User;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -21,6 +22,7 @@ public class UserDTO {
 	private String cpf;
 	
 	@NotBlank(message = "Entry valid email")
+	@Email
 	private String email;
 	
 	@NotEmpty(message = "Must have at least one role")

@@ -1,9 +1,11 @@
-package com.br.saraweb20.service.validation;
+package com.br.saraweb20.service.validation.constraints;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import com.br.saraweb20.service.validation.UserInsertValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

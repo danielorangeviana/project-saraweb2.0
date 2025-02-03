@@ -27,7 +27,7 @@ public class BookService {
 	@Transactional(readOnly = true)
 	public Page<BookDTO> findAllPaged(Pageable pageable) {
 		Page<Book> list = repository.findAll(pageable);
-		return list.map(x -> new BookDTO(x));
+		return list.map(element -> new BookDTO(element));
 	}
 
 	@Transactional(readOnly = true)
@@ -47,9 +47,10 @@ public class BookService {
 	
 	@Transactional
 	public BookDTO update(Long id, BookDTO dto) {
-		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException("Id " + id + " not found!");
-		}
+		
+		repository.findById(id)
+				  .orElseThrow(() -> new ResourceNotFoundException(id));
+		
 		try {
 			Book entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
@@ -63,9 +64,9 @@ public class BookService {
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
-		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException("Id " + id + " not found!");
-		}
+		repository.findById(id)
+				  .orElseThrow(() -> new ResourceNotFoundException("Id " + id + " not found!"));
+		
 		try {
 			repository.deleteById(id);
 		}

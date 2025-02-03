@@ -80,7 +80,7 @@ public class CelebrantService {
 	
 	private void copyDtoToEntity(CelebrantDTO dto, Celebrant entity) {
 
-		entity.setName(dto.getName());
+		entity.setName(dto.getNameCelebrant());
 		entity.setReligiousTitle(dto.getReligiousTitle());
 	}
 }

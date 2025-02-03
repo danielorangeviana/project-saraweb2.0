@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.br.saraweb20.dto.RoleDTO;
 import com.br.saraweb20.dto.UserDTO;
 import com.br.saraweb20.dto.UserInsertDTO;
+import com.br.saraweb20.dto.UserUpdateDTO;
 import com.br.saraweb20.entities.Role;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.repositories.RoleRepository;
@@ -54,7 +55,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		if(!repository.existsById(id)) {
 			throw new ResourceNotFoundException(id);
 		}

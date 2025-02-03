@@ -2,8 +2,11 @@ package com.br.saraweb20.entities.enums;
 
 public enum ReligiousTitle {
 	
-	CAPELAO(1),
-	PADRE(2);
+	BISPO(1),
+	PADRE(2),
+	ARCEBISPO(3),
+	DIACONO(4);
+	
 	
 	private int code;
 	

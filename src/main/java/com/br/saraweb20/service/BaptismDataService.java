@@ -106,7 +106,7 @@ public class BaptismDataService {
 		
 		CelebrantDTO celebrantDto = dto.getCelebrant();
 		if (celebrantDto != null) {
-	        Celebrant celebrant = celebrantRepository.getReferenceById(celebrantDto.getId());
+	        Celebrant celebrant = celebrantRepository.getReferenceById(celebrantDto.getIdCelebrant());
 	        entity.setCelebrant(celebrant);
 	    }
 	}

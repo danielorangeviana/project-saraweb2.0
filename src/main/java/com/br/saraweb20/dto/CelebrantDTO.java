@@ -18,16 +18,16 @@ import lombok.Setter;
 public class CelebrantDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Long idCelebrant;
 	
 	@NotBlank(message = "Entry the name of celebrant")
-	private String name;
+	private String nameCelebrant;
 	
 	private ReligiousTitle religiousTitle;
 	
 	public CelebrantDTO(Celebrant entity) {
-		id = entity.getId();
-		name = entity.getName();
+		idCelebrant = entity.getId();
+		nameCelebrant = entity.getName();
 		religiousTitle = entity.getReligiousTitle();
 	}
 }
