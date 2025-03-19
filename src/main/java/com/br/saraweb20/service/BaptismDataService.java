@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.br.saraweb20.dto.BaptismDataDTO;
 import com.br.saraweb20.dto.BaptismDataMinDTO;
-import com.br.saraweb20.dto.BookDTO;
-import com.br.saraweb20.dto.CelebrantDTO;
 import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.Celebrant;
@@ -94,20 +92,26 @@ public class BaptismDataService {
 		entity.setDateBirth(dto.getDateBirth());
 		entity.setFather(dto.getFather());
 		entity.setMother(dto.getMother());
-		entity.setGodfather(dto.getGodFather());
-		entity.setGodmother(dto.getGodMother());
+		entity.setGodfather(dto.getGodfather());
+		entity.setGodmother(dto.getGodmother());
 		entity.setDateBaptism(dto.getDateBaptism());
 		
-		BookDTO bookDto = dto.getBook();
-		if (bookDto != null) {
-	        Book book = bookRepository.getReferenceById(bookDto.getId());
-	        entity.setBook(book);
-	    }
+		Book book = bookRepository.findById(dto.getBookId())
+				.orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
+		entity.setBook(book);
 		
-		CelebrantDTO celebrantDto = dto.getCelebrant();
-		if (celebrantDto != null) {
-	        Celebrant celebrant = celebrantRepository.getReferenceById(celebrantDto.getIdCelebrant());
-	        entity.setCelebrant(celebrant);
-	    }
+		Celebrant celebrant =  celebrantRepository.findById(dto.getCelebrantId())
+				.orElseThrow(() -> new ResourceNotFoundException(dto.getCelebrantId()));
+		entity.setCelebrant(celebrant);
+		
+		/*
+		 * BookDTO bookDto = dto.getBook(); if (bookDto != null) { Book book =
+		 * bookRepository.getReferenceById(bookDto.getId()); entity.setBook(book); }
+		 * 
+		 * CelebrantDTO celebrantDto = dto.getCelebrant(); if (celebrantDto != null) {
+		 * Celebrant celebrant =
+		 * celebrantRepository.getReferenceById(celebrantDto.getIdCelebrant());
+		 * entity.setCelebrant(celebrant); }
+		 */
 	}
 }

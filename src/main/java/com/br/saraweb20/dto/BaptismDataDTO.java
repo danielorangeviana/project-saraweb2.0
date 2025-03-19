@@ -21,64 +21,85 @@ public class BaptismDataDTO implements Serializable{
 
 	private Long id;
 	
-	@NotNull(message = "Entry term number")
+	@NotNull(message = "The term number is required.")
 	private Long numberTerm;
 	
 	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
-	@NotBlank(message = "Entry the full name of children")
+	@NotBlank(message = "Enter the full name of the child")
 	private String nameChildren;
 	
 	@PastOrPresent(message = "The date must be past or present")
-	@NotNull(message = "Entry the child's date of birth")
+	@NotNull(message = "Enter the child's date of birth")
 	private LocalDate dateBirth;
 	
 	private String father;
 	
 	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
-	@NotBlank(message = "Entry the full name of the child's mother")
+	@NotBlank(message = "Enter the full name of the child's mother")
 	private String mother;
 	
 	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
-	@NotBlank(message = "Entry the full name of the child's godfather")
-	private String godFather;
+	@NotBlank(message = "Enter the full name of the child's godfather")
+	private String godfather;
 	
 	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
-	@NotBlank(message = "Entry the full name of the child's godmother")
-	private String godMother;
+	@NotBlank(message = "Enter the full name of the child's godmother")
+	private String godmother;
 	
-	@NotNull(message = "Entry baptism date")
+	@NotNull(message = "Enter the baptism date")
 	private LocalDate dateBaptism;
 	
-	@NotNull(message = "Must have at least one book")
-	private BookDTO book;
+	@NotNull(message = "A book is required")
+	private Long bookId;
 	
-	@NotNull(message = "Must have at least one celebrant")
-	private CelebrantDTO celebrant;
+	@NotNull(message = "A celebrant is required")
+	private Long celebrantId;
 	
-	public BaptismDataDTO(Long id, Long numberTerm, String nameChildren, LocalDate dateBirth, String father, String mother, String godFather, String godMother, LocalDate dateBaptism) {
+	/*
+	 * @NotNull(message = "A book is required") private BookDTO book;
+	 * 
+	 * @NotNull(message = "A celebrant is required") private CelebrantDTO celebrant;
+	 */
+	
+	public BaptismDataDTO(Long id, Long numberTerm, String nameChildren, LocalDate dateBirth, 
+			String father, String mother, String godfather, String godmother, LocalDate dateBaptism,
+			Long bookId, Long celebrantId) {
+		
 		this.id = id;
 		this.numberTerm = numberTerm;
 		this.nameChildren = nameChildren;
 		this.dateBirth = dateBirth;
 		this.father = father;
 		this.mother = mother;
-		this.godFather = godFather;
-		this.godMother = godMother;
+		this.godfather = godfather;
+		this.godmother = godmother;
 		this.dateBaptism = dateBaptism;
+		this.bookId = bookId;
+		this.celebrantId = celebrantId;		
 	}
 	
-	public BaptismDataDTO(BaptismData entity) {
-		id = entity.getId();
-		numberTerm = entity.getNumberTerm();
-		nameChildren = entity.getNameChildren();
-		dateBirth = entity.getDateBirth();
-		father = entity.getFather();
-		mother = entity.getMother();
-		godFather = entity.getGodfather();
-		godMother = entity.getGodmother();
-		dateBaptism = entity.getDateBaptism();
-		book = new BookDTO(entity.getBook());
-		celebrant = new CelebrantDTO(entity.getCelebrant());
+	public BaptismDataDTO(BaptismData entity) { 
+		id = entity.getId(); 
+		numberTerm = entity.getNumberTerm(); 
+		nameChildren = entity.getNameChildren(); 
+		dateBirth = entity.getDateBirth(); 
+		father = entity.getFather(); 
+		mother = entity.getMother(); 
+		godfather = entity.getGodfather(); 
+		godmother = entity.getGodmother(); 
+		dateBaptism = entity.getDateBaptism(); 
+		bookId = entity.getBook().getId();
+		celebrantId = entity.getCelebrant().getId();
 	}
+	
+	/*
+	 * public BaptismDataDTO(BaptismData entity) { id = entity.getId(); numberTerm =
+	 * entity.getNumberTerm(); nameChildren = entity.getNameChildren(); dateBirth =
+	 * entity.getDateBirth(); father = entity.getFather(); mother =
+	 * entity.getMother(); godFather = entity.getGodFather(); godMother =
+	 * entity.getGodMother(); dateBaptism = entity.getDateBaptism(); book = new
+	 * BookDTO(entity.getBook()); celebrant = new
+	 * CelebrantDTO(entity.getCelebrant()); }
+	 */
 	
 }
