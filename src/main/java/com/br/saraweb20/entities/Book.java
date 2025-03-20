@@ -1,12 +1,11 @@
 package com.br.saraweb20.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,16 +30,16 @@ public class Book implements Serializable{
 	
 	private Integer numberBook;
 	
-	private Integer numberSheet;
+	private Integer numberOfPage;
 	
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "book")
 	@JsonIgnore
-	private Set<BaptismData> baptismData = new HashSet<>();
+	private List<PageBook> pages = new ArrayList<>();
 
-	public Book(Long id, Integer numberBook, Integer numberSheet) {
+	public Book(Long id, Integer numberBook, Integer numberOfPage) {
 		this.id = id;
 		this.numberBook = numberBook;
-		this.numberSheet = numberSheet;
+		this.numberOfPage = numberOfPage;
 	}
 	
 	public void setId(Long id) {
@@ -51,8 +50,8 @@ public class Book implements Serializable{
 		this.numberBook = numberBook;
 	}
 
-	public void setNumberSheet(Integer numberSheet) {
-		this.numberSheet = numberSheet;
+	public void setNumberOfPage(Integer numberOfPage) {
+		this.numberOfPage = numberOfPage;
 	}
 
 }

@@ -50,20 +50,14 @@ public class BaptismDataDTO implements Serializable{
 	private LocalDate dateBaptism;
 	
 	@NotNull(message = "A book is required")
-	private Long bookId;
+	private Long pageBookId;
 	
 	@NotNull(message = "A celebrant is required")
 	private Long celebrantId;
 	
-	/*
-	 * @NotNull(message = "A book is required") private BookDTO book;
-	 * 
-	 * @NotNull(message = "A celebrant is required") private CelebrantDTO celebrant;
-	 */
-	
 	public BaptismDataDTO(Long id, Long numberTerm, String nameChildren, LocalDate dateBirth, 
 			String father, String mother, String godfather, String godmother, LocalDate dateBaptism,
-			Long bookId, Long celebrantId) {
+			Long pageBookId, Long celebrantId) {
 		
 		this.id = id;
 		this.numberTerm = numberTerm;
@@ -74,7 +68,7 @@ public class BaptismDataDTO implements Serializable{
 		this.godfather = godfather;
 		this.godmother = godmother;
 		this.dateBaptism = dateBaptism;
-		this.bookId = bookId;
+		this.pageBookId = pageBookId;
 		this.celebrantId = celebrantId;		
 	}
 	
@@ -88,18 +82,8 @@ public class BaptismDataDTO implements Serializable{
 		godfather = entity.getGodfather(); 
 		godmother = entity.getGodmother(); 
 		dateBaptism = entity.getDateBaptism(); 
-		bookId = entity.getBook().getId();
+		pageBookId = entity.getPageBook().getId();
 		celebrantId = entity.getCelebrant().getId();
 	}
-	
-	/*
-	 * public BaptismDataDTO(BaptismData entity) { id = entity.getId(); numberTerm =
-	 * entity.getNumberTerm(); nameChildren = entity.getNameChildren(); dateBirth =
-	 * entity.getDateBirth(); father = entity.getFather(); mother =
-	 * entity.getMother(); godFather = entity.getGodFather(); godMother =
-	 * entity.getGodMother(); dateBaptism = entity.getDateBaptism(); book = new
-	 * BookDTO(entity.getBook()); celebrant = new
-	 * CelebrantDTO(entity.getCelebrant()); }
-	 */
 	
 }

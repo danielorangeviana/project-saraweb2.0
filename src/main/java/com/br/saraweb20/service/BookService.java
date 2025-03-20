@@ -78,6 +78,6 @@ public class BookService {
 	private void copyDtoToEntity(BookDTO dto, Book entity) {
 
 		entity.setNumberBook(dto.getNumberBook());
-		entity.setNumberSheet(dto.getNumberSheet());
+		entity.setNumberOfPage(dto.getNumberOfPage());
 	}
 }

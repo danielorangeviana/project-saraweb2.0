@@ -31,7 +31,7 @@ public class BaptismDataMinDTO implements Serializable{
 	@NotNull(message = "Entry baptism date")
 	private LocalDate dateBaptism;
 	
-	private BookDTO book;
+	private PageBookDTO pageBook;
 	private CelebrantDTO celebrant;
 	
 	public BaptismDataMinDTO(Long id, Long numberTerm, String nameChildren, String mother, LocalDate dateBaptism) {
@@ -48,7 +48,7 @@ public class BaptismDataMinDTO implements Serializable{
 		nameChildren = entity.getNameChildren();
 		mother = entity.getMother();
 		dateBaptism = entity.getDateBaptism();
-		book = new BookDTO(entity.getBook());
+		pageBook = new PageBookDTO(entity.getPageBook());
 		celebrant = new CelebrantDTO(entity.getCelebrant());
 	}
 	

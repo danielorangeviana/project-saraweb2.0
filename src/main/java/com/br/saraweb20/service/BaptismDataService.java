@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.br.saraweb20.dto.BaptismDataDTO;
 import com.br.saraweb20.dto.BaptismDataMinDTO;
 import com.br.saraweb20.entities.BaptismData;
-import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.Celebrant;
+import com.br.saraweb20.entities.PageBook;
 import com.br.saraweb20.repositories.BaptismDataRepository;
-import com.br.saraweb20.repositories.BookRepository;
 import com.br.saraweb20.repositories.CelebrantRepository;
+import com.br.saraweb20.repositories.PageBookRepository;
 import com.br.saraweb20.service.exceptions.DatabaseException;
 import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 
@@ -30,7 +30,7 @@ public class BaptismDataService {
 	private BaptismDataRepository repository;
 	
 	@Autowired
-	private BookRepository bookRepository;
+	private PageBookRepository pageBookRepository;
 	
 	@Autowired
 	private CelebrantRepository celebrantRepository;
@@ -96,22 +96,13 @@ public class BaptismDataService {
 		entity.setGodmother(dto.getGodmother());
 		entity.setDateBaptism(dto.getDateBaptism());
 		
-		Book book = bookRepository.findById(dto.getBookId())
+		PageBook pageBook = pageBookRepository.findById(dto.getPageBookId())
 				.orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
-		entity.setBook(book);
+		entity.setPageBook(pageBook);
 		
 		Celebrant celebrant =  celebrantRepository.findById(dto.getCelebrantId())
 				.orElseThrow(() -> new ResourceNotFoundException(dto.getCelebrantId()));
 		entity.setCelebrant(celebrant);
 		
-		/*
-		 * BookDTO bookDto = dto.getBook(); if (bookDto != null) { Book book =
-		 * bookRepository.getReferenceById(bookDto.getId()); entity.setBook(book); }
-		 * 
-		 * CelebrantDTO celebrantDto = dto.getCelebrant(); if (celebrantDto != null) {
-		 * Celebrant celebrant =
-		 * celebrantRepository.getReferenceById(celebrantDto.getIdCelebrant());
-		 * entity.setCelebrant(celebrant); }
-		 */
 	}
 }
