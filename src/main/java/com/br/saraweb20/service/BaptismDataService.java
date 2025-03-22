@@ -46,7 +46,7 @@ public class BaptismDataService {
 	private CelebrantRepository celebrantRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<BaptismDataMinDTO> findAllPaged(String nameChildren, Pageable pageable) {
+	public Page<BaptismDataMinDTO> findAllPagedByName(String nameChildren, Pageable pageable) {
 		Page<BaptismData> page = repository.searchByName(nameChildren, pageable);
 		return page.map(x -> new BaptismDataMinDTO(x));
 	}

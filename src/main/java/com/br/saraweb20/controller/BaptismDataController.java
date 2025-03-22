@@ -31,11 +31,11 @@ public class BaptismDataController {
 	private BaptismDataService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<BaptismDataMinDTO>> findAll(
+	public ResponseEntity<Page<BaptismDataMinDTO>> findAllByName(
 			@RequestParam(name = "nameChildren", defaultValue = "") String nameChildren, 
 			Pageable pageable) {
 		
-		Page<BaptismDataMinDTO> page = service.findAllPaged(nameChildren, pageable);
+		Page<BaptismDataMinDTO> page = service.findAllPagedByName(nameChildren, pageable);
 		
 		return ResponseEntity.ok().body(page);
 	}
