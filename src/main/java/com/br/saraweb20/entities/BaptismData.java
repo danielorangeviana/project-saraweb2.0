@@ -31,20 +31,17 @@ public class BaptismData implements Serializable{
 	private Long id;
 	
 	private Long numberTerm;
-	
 	private String nameChildren;
-	
 	private LocalDate dateBirth;
-	
-	private String father;
-	
-	private String mother;
-	
-	private String godfather;
-	
-	private String godmother;
-	
 	private LocalDate dateBaptism;
+	
+	@ManyToOne
+	@JoinColumn(name = "parent_id")
+	private Parent parents;
+	
+	@ManyToOne
+	@JoinColumn(name = "godparent_id")
+	private Godparent godparents;
 	
 	@ManyToOne
 	@JoinColumn(name = "pageBook_id")

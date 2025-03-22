@@ -14,10 +14,14 @@ import com.br.saraweb20.dto.BaptismDataDTO;
 import com.br.saraweb20.dto.BaptismDataMinDTO;
 import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.entities.Celebrant;
+import com.br.saraweb20.entities.Godparent;
 import com.br.saraweb20.entities.PageBook;
+import com.br.saraweb20.entities.Parent;
 import com.br.saraweb20.repositories.BaptismDataRepository;
 import com.br.saraweb20.repositories.CelebrantRepository;
+import com.br.saraweb20.repositories.GodparentRepository;
 import com.br.saraweb20.repositories.PageBookRepository;
+import com.br.saraweb20.repositories.ParentRepository;
 import com.br.saraweb20.service.exceptions.DatabaseException;
 import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 
@@ -28,6 +32,12 @@ public class BaptismDataService {
 	
 	@Autowired
 	private BaptismDataRepository repository;
+	
+	@Autowired
+	private ParentRepository parentRepository;
+	
+	@Autowired
+	private GodparentRepository godparentRepository;
 	
 	@Autowired
 	private PageBookRepository pageBookRepository;
@@ -90,14 +100,18 @@ public class BaptismDataService {
 		entity.setNumberTerm(dto.getNumberTerm());
 		entity.setNameChildren(dto.getNameChildren());
 		entity.setDateBirth(dto.getDateBirth());
-		entity.setFather(dto.getFather());
-		entity.setMother(dto.getMother());
-		entity.setGodfather(dto.getGodfather());
-		entity.setGodmother(dto.getGodmother());
 		entity.setDateBaptism(dto.getDateBaptism());
 		
+		Parent parent = parentRepository.findById(dto.getParentId())
+				.orElseThrow(() -> new ResourceNotFoundException(dto.getParentId()));
+		entity.setParents(parent);
+		
+		Godparent godparent = godparentRepository.findById(dto.getGodparentId())
+				.orElseThrow(() -> new ResourceNotFoundException(dto.getGodparentId()));
+		entity.setGodparents(godparent);
+		
 		PageBook pageBook = pageBookRepository.findById(dto.getPageBookId())
-				.orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
+				.orElseThrow(() -> new ResourceNotFoundException(dto.getPageBookId()));
 		entity.setPageBook(pageBook);
 		
 		Celebrant celebrant =  celebrantRepository.findById(dto.getCelebrantId())
