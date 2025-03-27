@@ -1,11 +1,15 @@
 package com.br.saraweb20.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +20,7 @@ import com.br.saraweb20.dto.UserInsertDTO;
 import com.br.saraweb20.dto.UserUpdateDTO;
 import com.br.saraweb20.entities.Role;
 import com.br.saraweb20.entities.User;
+import com.br.saraweb20.projections.UserDetailsProjection;
 import com.br.saraweb20.repositories.RoleRepository;
 import com.br.saraweb20.repositories.UserRepository;
 import com.br.saraweb20.service.exceptions.DatabaseException;
@@ -24,7 +29,7 @@ import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserRepository repository;
@@ -94,5 +99,22 @@ public class UserService {
 			Role role = roleRepository.getReferenceById(roleDto.getId());
 			entity.getRoles().add(role);
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+		
+		if(result.isEmpty()) throw new UsernameNotFoundException("User not found!");
+		
+		User user = new User();
+		user.setCpf(username);
+		user.setPassword(result.get(0).getPassword());
+		result.forEach(projection -> 
+	    user.addRole(new Role(projection.getRoleId(), projection.getAuthority()))
+	);
+		
+		return user;
 	}
 }
