@@ -23,11 +23,11 @@ public class GodparentDTO implements Serializable{
 	private Long id;
 	
 	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
-	@NotBlank(message = "Enter the full name of the child's Godfather")
+	@NotBlank(message = "Enter the full name of the child's godfather")
 	private String godfather;
 	
 	@Size(min = 3, max = 80, message = "Full name must be 3 to 80 characters long")
-	@NotBlank(message = "Enter the full name of the child's Godmother")
+	@NotBlank(message = "Enter the full name of the child's godmother")
 	private String godmother;
 	
 	public GodparentDTO(Godparent entity) {

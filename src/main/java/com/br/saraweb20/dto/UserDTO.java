@@ -9,7 +9,7 @@ import com.br.saraweb20.entities.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class UserDTO {
 	
@@ -22,10 +22,10 @@ public class UserDTO {
 	private String cpf;
 	
 	@NotBlank(message = "Entry valid email")
-	@Email
+	@Email(message = "Entry valid email")
 	private String email;
 	
-	@NotEmpty(message = "Must have at least one role")
+	@NotNull(message = "Must have at least one role")
 	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO() {

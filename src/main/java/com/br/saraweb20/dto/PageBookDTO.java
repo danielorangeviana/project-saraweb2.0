@@ -23,6 +23,8 @@ public class PageBookDTO implements Serializable{
 	
 	@NotNull(message = "Entry the page number")
 	private Integer pageNumber;
+	
+	@NotNull(message = "Number of book is required")
 	private Long pageBookId;
 	
 	public PageBookDTO(PageBook entity) {
