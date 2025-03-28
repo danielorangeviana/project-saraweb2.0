@@ -16,9 +16,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	User findByCpf(String cpf);
 	
-	@Query("SELECT user.cpf AS username, user.password, role.id AS roleId, role.authority " +
-		       "FROM User user " +
-		       "JOIN user.roles role " +
-		       "WHERE user.cpf = :cpf")
-	List<UserDetailsProjection> searchUserAndRolesByEmail(String cpf);
+	@Query(value = """
+		    SELECT 
+		        u.cpf AS username, 
+		        u.password AS password, 
+		        r.id AS roleId, 
+		        r.authority AS authority
+		    FROM User u
+		    JOIN u.roles r
+		    WHERE u.cpf = :cpf
+		    """)
+	List<UserDetailsProjection> searchUserAndRolesByCpf(String cpf);
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,9 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
 		Page<User> list = repository.findAll(pageable);
@@ -54,7 +58,8 @@ public class UserService implements UserDetailsService {
 	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
-		entity.setPassword(dto.getPassword());
+		String encodedPassword = passwordEncoder.encode(dto.getPassword());
+		entity.setPassword(encodedPassword);
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 	}
@@ -104,7 +109,7 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
+		List<UserDetailsProjection> result = repository.searchUserAndRolesByCpf(username);
 		
 		if(result.isEmpty()) throw new UsernameNotFoundException("User not found!");
 		

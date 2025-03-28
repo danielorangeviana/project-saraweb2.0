@@ -73,12 +73,12 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles;
+		return this.roles;
 	}
 
 	@Override
 	public String getUsername() {
-		return cpf;
+		return this.cpf;
 	}
 
 	@Override

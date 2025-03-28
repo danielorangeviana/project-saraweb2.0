@@ -86,7 +86,7 @@ public class AuthorizationServerConfig {
 
 		return http.build();
 	}
-
+	
 	@Bean
 	public OAuth2AuthorizationService authorizationService() {
 		return new InMemoryOAuth2AuthorizationService();
@@ -96,7 +96,7 @@ public class AuthorizationServerConfig {
 	public OAuth2AuthorizationConsentService oAuth2AuthorizationConsentService() {
 		return new InMemoryOAuth2AuthorizationConsentService();
 	}
-
+	
 	@Bean
 	public RegisteredClientRepository registeredClientRepository() {
 		// @formatter:off
