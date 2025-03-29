@@ -117,9 +117,8 @@ public class UserService implements UserDetailsService {
 		user.setCpf(username);
 		user.setPassword(result.get(0).getPassword());
 		result.forEach(projection -> 
-	    user.addRole(new Role(projection.getRoleId(), projection.getAuthority()))
-	);
-		
+	    user.addRole(new Role(projection.getRoleId(), projection.getAuthority())));
+	    	
 		return user;
 	}
 }
