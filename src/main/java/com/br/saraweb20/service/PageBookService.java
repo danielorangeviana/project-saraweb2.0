@@ -38,7 +38,7 @@ public class PageBookService {
 	@Transactional(readOnly = true)
 	public PageBookDTO findById(Long id) {
 		Optional<PageBook> obj = pageBookRepository.findById(id);
-		PageBook entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		PageBook entity = obj.orElseThrow(() -> new ResourceNotFoundException("Page not found!"));
 		return new PageBookDTO(entity);
 	}
 
@@ -54,7 +54,7 @@ public class PageBookService {
 	public PageBookDTO update(Long id, PageBookDTO dto) {
 		
 		pageBookRepository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Page not found!"));
 		
 		try {
 			PageBook entity = pageBookRepository.getReferenceById(id);
@@ -63,14 +63,14 @@ public class PageBookService {
 			return new PageBookDTO(entity);
 		} 
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Page not found!");
 		}		
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		pageBookRepository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Page not found!"));
 		
 		try {
 			pageBookRepository.deleteById(id);
@@ -85,7 +85,7 @@ public class PageBookService {
 		entity.setPageNumber(dto.getPageNumber());
 		
 		Book book = bookRepository.findById(dto.getPageBookId())
-				.orElseThrow(() -> new ResourceNotFoundException(dto.getId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Book not found!"));
 		entity.setBook(book);
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.br.saraweb20.service.exceptions.DatabaseException;
+import com.br.saraweb20.service.exceptions.EmailException;
 import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class ResourceExceptionHandler {
 		error.setTimestamp(Instant.now());
 		error.setStatus(status.value());
 		error.setError("Resource not found");
+		error.setMessage(exception.getMessage());
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(error);
 	}
@@ -34,6 +36,7 @@ public class ResourceExceptionHandler {
 		error.setTimestamp(Instant.now());
 		error.setStatus(status.value());
 		error.setError("Database exception");
+		error.setMessage(exception.getMessage());
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(error);
 	}
@@ -41,10 +44,22 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException exception, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-		ValidationError error = new ValidationError(Instant.now(), status.value(), "Validation exception", request.getRequestURI());
+		ValidationError error = new ValidationError(Instant.now(), status.value(), "Validation exception", exception.getMessage(), request.getRequestURI());
 		exception.getBindingResult().getFieldErrors().forEach(element -> {
 			error.addErrors(element.getField(), element.getDefaultMessage());
 		});
+		return ResponseEntity.status(status).body(error);
+	}
+	
+	@ExceptionHandler(EmailException.class)
+	public ResponseEntity<StandardError> email(EmailException exception, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError error = new StandardError();
+		error.setTimestamp(Instant.now());
+		error.setStatus(status.value());
+		error.setError("Email exception");
+		error.setMessage(exception.getMessage());
+		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(error);
 	}
 }

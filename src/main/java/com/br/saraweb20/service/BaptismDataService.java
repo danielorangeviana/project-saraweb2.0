@@ -54,7 +54,7 @@ public class BaptismDataService {
 	@Transactional(readOnly = true)
 	public BaptismDataMinDTO findById(Long id) {
 		Optional<BaptismData> obj = repository.findById(id);
-		BaptismData entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		BaptismData entity = obj.orElseThrow(() -> new ResourceNotFoundException("Baptism not found!"));
 		return new BaptismDataMinDTO(entity);
 	}
 
@@ -69,7 +69,7 @@ public class BaptismDataService {
 	@Transactional
 	public BaptismDataDTO update(Long id, BaptismDataDTO dto) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Baptism not found!");
 		}
 		try {
 			BaptismData entity = repository.getReferenceById(id);
@@ -78,14 +78,14 @@ public class BaptismDataService {
 			return new BaptismDataDTO(entity);
 		} 
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Baptism not found!");
 		}		
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Baptism not found!");
 		}
 		try {
 			repository.deleteById(id);
@@ -103,19 +103,19 @@ public class BaptismDataService {
 		entity.setDateBaptism(dto.getDateBaptism());
 		
 		Parent parent = parentRepository.findById(dto.getParentId())
-				.orElseThrow(() -> new ResourceNotFoundException(dto.getParentId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Parent not found!"));
 		entity.setParents(parent);
 		
 		Godparent godparent = godparentRepository.findById(dto.getGodparentId())
-				.orElseThrow(() -> new ResourceNotFoundException(dto.getGodparentId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Godparent not found!"));
 		entity.setGodparents(godparent);
 		
 		PageBook pageBook = pageBookRepository.findById(dto.getPageBookId())
-				.orElseThrow(() -> new ResourceNotFoundException(dto.getPageBookId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Page not found!"));
 		entity.setPageBook(pageBook);
 		
 		Celebrant celebrant =  celebrantRepository.findById(dto.getCelebrantId())
-				.orElseThrow(() -> new ResourceNotFoundException(dto.getCelebrantId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Celebrant not found!"));
 		entity.setCelebrant(celebrant);
 		
 	}

@@ -33,7 +33,7 @@ public class CelebrantService {
 	@Transactional(readOnly = true)
 	public CelebrantDTO findById(Long id) {
 		Optional<Celebrant> obj = repository.findById(id);
-		Celebrant entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Celebrant entity = obj.orElseThrow(() -> new ResourceNotFoundException("Celebrant not found!"));
 		return new CelebrantDTO(entity);
 	}
 	
@@ -52,7 +52,7 @@ public class CelebrantService {
 	@Transactional
 	public CelebrantDTO update(Long id, CelebrantDTO dto) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Celebrant not found!");
 		}
 		try {
 			Celebrant entity = repository.getReferenceById(id);
@@ -61,14 +61,14 @@ public class CelebrantService {
 			return new CelebrantDTO(entity);
 		}
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Celebrant not found!");
 		}
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Celebrant not found!");
 		}
 		try {
 			repository.deleteById(id);

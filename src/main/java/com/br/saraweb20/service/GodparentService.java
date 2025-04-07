@@ -33,7 +33,7 @@ public class GodparentService {
 	@Transactional(readOnly = true)
 	public GodparentDTO findById(Long id) {
 		Optional<Godparent> obj = godparentRepository.findById(id);
-		Godparent entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Godparent entity = obj.orElseThrow(() -> new ResourceNotFoundException("Godparent not found!"));
 		return new GodparentDTO(entity);
 	}
 
@@ -49,7 +49,7 @@ public class GodparentService {
 	public GodparentDTO update(Long id, GodparentDTO dto) {
 		
 		godparentRepository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Godparent not found!"));
 		
 		try {
 			Godparent entity = godparentRepository.getReferenceById(id);
@@ -58,14 +58,14 @@ public class GodparentService {
 			return new GodparentDTO(entity);
 		} 
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Godparent not found!");
 		}		
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		godparentRepository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Godparent not found!"));
 		
 		try {
 			godparentRepository.deleteById(id);

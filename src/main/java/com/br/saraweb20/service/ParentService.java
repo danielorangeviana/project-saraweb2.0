@@ -33,7 +33,7 @@ public class ParentService {
 	@Transactional(readOnly = true)
 	public ParentDTO findById(Long id) {
 		Optional<Parent> obj = parentRepository.findById(id);
-		Parent entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Parent entity = obj.orElseThrow(() -> new ResourceNotFoundException("Parent not found!"));
 		return new ParentDTO(entity);
 	}
 
@@ -49,7 +49,7 @@ public class ParentService {
 	public ParentDTO update(Long id, ParentDTO dto) {
 		
 		parentRepository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Parent not found!"));
 		
 		try {
 			Parent entity = parentRepository.getReferenceById(id);
@@ -58,14 +58,14 @@ public class ParentService {
 			return new ParentDTO(entity);
 		} 
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Parent not found!");
 		}		
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		parentRepository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Parent not found!"));
 		
 		try {
 			parentRepository.deleteById(id);

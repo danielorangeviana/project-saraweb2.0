@@ -33,7 +33,7 @@ public class BookService {
 	@Transactional(readOnly = true)
 	public BookDTO findById(Long id) {
 		Optional<Book> obj = repository.findById(id);
-		Book entity = obj.orElseThrow(() -> new ResourceNotFoundException("Id " + id + " not found!"));
+		Book entity = obj.orElseThrow(() -> new ResourceNotFoundException("Book not found!"));
 		return new BookDTO(entity);
 	}
 
@@ -49,7 +49,7 @@ public class BookService {
 	public BookDTO update(Long id, BookDTO dto) {
 		
 		repository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException(id));
+				  .orElseThrow(() -> new ResourceNotFoundException("Book not found!"));
 		
 		try {
 			Book entity = repository.getReferenceById(id);
@@ -58,14 +58,14 @@ public class BookService {
 			return new BookDTO(entity);
 		} 
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id " + id + " not found!");
+			throw new ResourceNotFoundException("Book not found!");
 		}		
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		repository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException("Id " + id + " not found!"));
+				  .orElseThrow(() -> new ResourceNotFoundException("Book not found!"));
 		
 		try {
 			repository.deleteById(id);

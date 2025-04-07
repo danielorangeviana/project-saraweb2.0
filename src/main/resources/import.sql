@@ -1,4 +1,4 @@
-INSERT INTO tb_user (name, cpf, email, password) VALUES ('Daniel Orange', '829.974.070-36', 'daniel@gmail.com', '$2a$10$4ipAszafmeE7pqOB55.kVea.ySODwaT5lSoWxGyNcRdRkvtc8F5xq');
+INSERT INTO tb_user (name, cpf, email, password) VALUES ('Daniel Orange', '829.974.070-36', 'danieloviana@gmail.com', '$2a$10$4ipAszafmeE7pqOB55.kVea.ySODwaT5lSoWxGyNcRdRkvtc8F5xq');
 INSERT INTO tb_user (name, cpf, email, password) VALUES ('Dryele Ribeiro', '478.377.550-81', 'dryele@gmail.com', '$2a$10$4ipAszafmeE7pqOB55.kVea.ySODwaT5lSoWxGyNcRdRkvtc8F5xq');
 INSERT INTO tb_user (name, cpf, email, password) VALUES ('Deivson Correa', '462.501.020-94', 'deivson@gmail.com', '$2a$10$4ipAszafmeE7pqOB55.kVea.ySODwaT5lSoWxGyNcRdRkvtc8F5xq');
 

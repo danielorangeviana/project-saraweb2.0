@@ -50,7 +50,7 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		User entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 		return new UserDTO(entity);
 	}
 
@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("User not found!");
 		}
 		try {
 			User entity = repository.getReferenceById(id);
@@ -76,14 +76,14 @@ public class UserService implements UserDetailsService {
 			return new UserDTO(entity);
 		} 
 		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("User not found!");
 		}		
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("User not found!");
 		}
 		try {
 			repository.deleteById(id);
