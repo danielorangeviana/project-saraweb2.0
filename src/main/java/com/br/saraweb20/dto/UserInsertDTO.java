@@ -10,7 +10,6 @@ public class UserInsertDTO extends UserDTO {
 	
 	@NotBlank(message = "Required field")
 	@Size(min = 6, message = "Must have at least 6 characters")
-	
 	private String password;
 
 	public UserInsertDTO() {
