@@ -42,6 +42,12 @@ public class UserController {
 		return ResponseEntity.ok().body(dto);
 	}
 	
+	@GetMapping(value = "/logged-user")
+	public ResponseEntity<UserDTO> searchLoggedUser() {
+		UserDTO dto = service.findLoggedUser();
+		return ResponseEntity.ok().body(dto);
+	}
+	
 	@PostMapping
 	public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
 		UserDTO newDTO = service.insert(dto);
