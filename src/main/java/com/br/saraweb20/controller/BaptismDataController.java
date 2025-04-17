@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class BaptismDataController {
 	@Autowired
 	private BaptismDataService service;
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@GetMapping
 	public ResponseEntity<Page<BaptismDataMinDTO>> findAllByName(
 			@RequestParam(name = "nameChildren", defaultValue = "") String nameChildren, 
@@ -39,13 +41,15 @@ public class BaptismDataController {
 		
 		return ResponseEntity.ok().body(page);
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<BaptismDataMinDTO> findById(@PathVariable Long id) {
 		BaptismDataMinDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@PostMapping
 	public ResponseEntity<BaptismDataDTO> insert(@Valid @RequestBody BaptismDataDTO dto) {
 		BaptismDataDTO newDto = service.insert(dto);
@@ -53,13 +57,15 @@ public class BaptismDataController {
 				.buildAndExpand(newDto.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDto);
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<BaptismDataDTO> update(@PathVariable Long id, @Valid @RequestBody BaptismDataDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
