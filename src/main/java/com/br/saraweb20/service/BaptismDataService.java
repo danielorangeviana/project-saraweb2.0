@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.br.saraweb20.dto.BaptismDataDTO;
 import com.br.saraweb20.dto.BaptismDataMinDTO;
+import com.br.saraweb20.dto.ScheduleBaptismDTO;
 import com.br.saraweb20.entities.BaptismData;
 import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.entities.Godparent;
@@ -64,6 +65,22 @@ public class BaptismDataService {
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new BaptismDataDTO(entity);
+	}
+	
+	@Transactional
+	public BaptismDataDTO scheduleDateBaptism(Long id, ScheduleBaptismDTO dto) {
+		if(!repository.existsById(id)) {
+			throw new ResourceNotFoundException("Baptism not found!");
+		}
+		try {
+			BaptismData entity = repository.getReferenceById(id);
+			entity.setDateBaptism(dto.getDateBaptism());
+			entity = repository.save(entity);
+			return new BaptismDataDTO(entity);
+		} 
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Baptism not found!");
+		}
 	}
 
 	@Transactional

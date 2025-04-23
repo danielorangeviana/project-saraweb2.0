@@ -3,6 +3,7 @@ package com.br.saraweb20.service;
 import static org.mockito.Mockito.times;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.br.saraweb20.dto.BookDTO;
 import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.repositories.BookRepository;
+import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 import com.br.saraweb20.tests.BookFactory;
 
 @ExtendWith(SpringExtension.class)
@@ -45,6 +47,8 @@ public class BookServiceTests {
 		page = new PageImpl<>(List.of(book));
 
 		Mockito.when(bookRepository.findAll((Pageable) ArgumentMatchers.any())).thenReturn(page);
+		Mockito.when(bookRepository.findById(existingBookId)).thenReturn(Optional.of(book));
+		
 	}
 
 	@Test
@@ -65,8 +69,23 @@ public class BookServiceTests {
 	}
 	
 	@Test
-	public void findByIdShouldReturnBookWhenIdExists() {
+	public void findByIdShouldReturnBookDTOWhenIdExists() {
 		
+		BookDTO result = bookService.findById(existingBookId);
+		
+		Assertions.assertNotNull(result);
+		Assertions.assertEquals(result.getId(), existingBookId);
+		Assertions.assertEquals(result.getNumberBook(), book.getNumberBook());
+		Assertions.assertEquals(result.getNumberOfPage(), book.getNumberOfPage());
+		
+	}
+	
+	@Test
+	public void findByIdShouldReturnResourceNotFoundExceptionWhenIdDoesNotExist() {
+		
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			bookService.findById(nonExistingBookId);
+		});
 	}
 
 }

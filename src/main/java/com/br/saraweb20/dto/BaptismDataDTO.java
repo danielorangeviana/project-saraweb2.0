@@ -34,7 +34,7 @@ public class BaptismDataDTO implements Serializable{
 	@NotNull(message = "Enter the child's date of birth")
 	private LocalDate dateBirth;
 	
-	@NotNull(message = "Enter the baptism date")
+	// It can be null so that scheduling can be done later.
 	private LocalDate dateBaptism;
 	
 	private Long pageBookId;
