@@ -7,7 +7,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.br.saraweb20.dto.BookDTO;
@@ -48,9 +47,6 @@ public class BookService {
 	@Transactional
 	public BookDTO update(Long id, BookDTO dto) {
 		
-		repository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException("Book not found!"));
-		
 		try {
 			Book entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
@@ -62,16 +58,16 @@ public class BookService {
 		}		
 	}
 
-	@Transactional(propagation = Propagation.SUPPORTS)
+	@Transactional
 	public void delete(Long id) {
-		repository.findById(id)
-				  .orElseThrow(() -> new ResourceNotFoundException("Book not found!"));
+		if(!repository.existsById(id)) 
+			throw new ResourceNotFoundException("Book not found!");
 		
 		try {
 			repository.deleteById(id);
 		}
 		catch (DataIntegrityViolationException exception) {
-			throw new DatabaseException(exception.getMessage());
+			throw new DatabaseException("Referential integrity failure");
 		}
 	}
 	
