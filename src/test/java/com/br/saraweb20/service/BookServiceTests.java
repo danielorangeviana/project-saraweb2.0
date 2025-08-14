@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import java.util.List;
 import java.util.Optional;
 
+import com.br.saraweb20.mappers.BookMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.br.saraweb20.dto.BookDTO;
 import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.repositories.BookRepository;
-import com.br.saraweb20.service.exceptions.DatabaseException;
-import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
+import com.br.saraweb20.exceptions.DatabaseException;
+import com.br.saraweb20.exceptions.ResourceNotFoundException;
 import com.br.saraweb20.tests.BookFactory;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -37,6 +38,9 @@ public class BookServiceTests {
 
 	@Mock
 	private BookRepository bookRepository;
+
+    @Mock
+    private BookMapper bookMapper;
 	
 	private Long existingBookId, nonExistingBookId, dependentBookId;
 	private Book book;
@@ -50,7 +54,7 @@ public class BookServiceTests {
 		dependentBookId = 2L;
 		nonExistingBookId = 30L;
 		book = BookFactory.createBook();
-		bookDTO = new BookDTO(book);
+		bookDTO = bookMapper.toDTO(book);
 		page = new PageImpl<>(List.of(book));
 
 		Mockito.when(bookRepository.findAll((Pageable) any())).thenReturn(page);

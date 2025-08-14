@@ -1,4 +1,4 @@
-package com.br.saraweb20.entities.enums;
+package com.br.saraweb20.enums;
 
 public enum ReligiousTitle {
 	

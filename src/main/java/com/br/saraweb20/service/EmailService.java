@@ -7,7 +7,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.br.saraweb20.service.exceptions.EmailException;
+import com.br.saraweb20.exceptions.EmailException;
 
 @Service
 public class EmailService {

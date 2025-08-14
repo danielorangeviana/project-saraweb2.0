@@ -15,8 +15,8 @@ import com.br.saraweb20.entities.Book;
 import com.br.saraweb20.entities.PageBook;
 import com.br.saraweb20.repositories.BookRepository;
 import com.br.saraweb20.repositories.PageBookRepository;
-import com.br.saraweb20.service.exceptions.DatabaseException;
-import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
+import com.br.saraweb20.exceptions.DatabaseException;
+import com.br.saraweb20.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 

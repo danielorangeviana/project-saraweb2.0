@@ -1,4 +1,4 @@
-package com.br.saraweb20.service.exceptions;
+package com.br.saraweb20.exceptions;
 
 @SuppressWarnings("serial")
 public class EmailException extends RuntimeException {

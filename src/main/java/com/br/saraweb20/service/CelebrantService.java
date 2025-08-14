@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.br.saraweb20.dto.CelebrantDTO;
 import com.br.saraweb20.entities.Celebrant;
 import com.br.saraweb20.repositories.CelebrantRepository;
-import com.br.saraweb20.service.exceptions.DatabaseException;
-import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
+import com.br.saraweb20.exceptions.DatabaseException;
+import com.br.saraweb20.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 

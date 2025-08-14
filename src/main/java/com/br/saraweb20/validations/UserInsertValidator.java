@@ -1,15 +1,14 @@
-package com.br.saraweb20.service.validation;
+package com.br.saraweb20.validations;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.br.saraweb20.controller.exceptions.FieldMessage;
+import com.br.saraweb20.exceptions.FieldMessage;
 import com.br.saraweb20.dto.UserInsertDTO;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.repositories.UserRepository;
-import com.br.saraweb20.service.validation.constraints.UserInsertValid;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

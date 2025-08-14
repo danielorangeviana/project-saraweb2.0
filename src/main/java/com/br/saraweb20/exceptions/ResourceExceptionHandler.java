@@ -1,4 +1,4 @@
-package com.br.saraweb20.controller.exceptions;
+package com.br.saraweb20.exceptions;
 
 import java.time.Instant;
 
@@ -7,10 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.br.saraweb20.service.exceptions.DatabaseException;
-import com.br.saraweb20.service.exceptions.EmailException;
-import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 

@@ -3,7 +3,7 @@ package com.br.saraweb20.dto;
 import java.io.Serializable;
 
 import com.br.saraweb20.entities.Celebrant;
-import com.br.saraweb20.entities.enums.ReligiousTitle;
+import com.br.saraweb20.enums.ReligiousTitle;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

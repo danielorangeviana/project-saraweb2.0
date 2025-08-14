@@ -20,7 +20,7 @@ import com.br.saraweb20.entities.PasswordRecover;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.repositories.PasswordRecoverRepository;
 import com.br.saraweb20.repositories.UserRepository;
-import com.br.saraweb20.service.exceptions.ResourceNotFoundException;
+import com.br.saraweb20.exceptions.ResourceNotFoundException;
 
 @Service
 public class AuthService {

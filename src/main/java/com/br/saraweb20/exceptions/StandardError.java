@@ -1,4 +1,4 @@
-package com.br.saraweb20.controller.exceptions;
+package com.br.saraweb20.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;

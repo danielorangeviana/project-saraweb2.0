@@ -1,12 +1,10 @@
-package com.br.saraweb20.service.validation.constraints;
+package com.br.saraweb20.validations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import com.br.saraweb20.service.validation.PasswordValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

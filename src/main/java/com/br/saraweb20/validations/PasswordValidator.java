@@ -1,6 +1,4 @@
-package com.br.saraweb20.service.validation;
-
-import com.br.saraweb20.service.validation.constraints.PasswordValid;
+package com.br.saraweb20.validations;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

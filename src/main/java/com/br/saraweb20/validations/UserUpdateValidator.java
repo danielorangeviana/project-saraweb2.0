@@ -1,4 +1,4 @@
-package com.br.saraweb20.service.validation;
+package com.br.saraweb20.validations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.br.saraweb20.controller.exceptions.FieldMessage;
+import com.br.saraweb20.exceptions.FieldMessage;
 import com.br.saraweb20.dto.UserUpdateDTO;
 import com.br.saraweb20.entities.User;
 import com.br.saraweb20.repositories.UserRepository;
-import com.br.saraweb20.service.validation.constraints.UserUpdateValid;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;

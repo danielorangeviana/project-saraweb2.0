@@ -5,17 +5,9 @@ import java.io.Serializable;
 import com.br.saraweb20.entities.Book;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 public class BookDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -26,11 +18,5 @@ public class BookDTO implements Serializable{
 	
 	@NotNull(message = "Entry the number of page")
 	private Integer numberOfPage;
-	
-	public BookDTO(Book entity) {
-		id = entity.getId();
-		numberBook = entity.getNumberBook();
-		numberOfPage = entity.getNumberOfPage();
-	}
 
 }
