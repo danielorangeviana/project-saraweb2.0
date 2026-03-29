@@ -2,7 +2,7 @@ package com.br.saraweb.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +21,11 @@ import com.br.saraweb.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
+@RequiredArgsConstructor
 public class PageBookService {
-	
-	@Autowired
-	private PageBookRepository pageBookRepository;
-	
-	@Autowired
-	private BookRepository bookRepository;
+
+	private final PageBookRepository pageBookRepository;
+	private final BookRepository bookRepository;
 	
 	@Transactional(readOnly = true)
 	public Page<PageBookDTO> findAllPaged(Pageable pageable) {

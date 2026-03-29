@@ -2,11 +2,10 @@ package com.br.saraweb.controller;
 
 import java.net.URI;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,34 +23,30 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/parents")
+@RequiredArgsConstructor
 public class ParentController {
 
-	@Autowired
-	private ParentService service;
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+	private final ParentService service;
+
 	@GetMapping
 	public ResponseEntity<Page<ParentDTO>> findAll(Pageable pageable) {
 		Page<ParentDTO> list = service.findAllPaged(pageable);
 		return ResponseEntity.ok().body(list);
 	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ParentDTO> findById(@PathVariable Long id) {
 		ParentDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+
 	@PostMapping
 	public ResponseEntity<ParentDTO> insert(@Valid @RequestBody ParentDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
-	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ParentDTO> update(@PathVariable Long id, 
 											  @Valid 
@@ -59,8 +54,7 @@ public class ParentController {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
-	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);

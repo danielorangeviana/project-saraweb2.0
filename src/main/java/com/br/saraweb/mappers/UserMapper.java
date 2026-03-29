@@ -15,24 +15,19 @@ public interface UserMapper {
     UserDTO toDTO(User entity);
 
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "authorities", ignore = true)
     User toEntity(UserDTO dto);
 
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "authorities", ignore = true)
     User toEntity(UserInsertDTO dto);
 
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "authorities", ignore = true)
     User toEntity(UserUpdateDTO dto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "authorities", ignore = true)
     void updateEntityFromDTO(UserDTO dto, @MappingTarget User entity);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "authorities", ignore = true)
     void updateEntityFromDTO(UserUpdateDTO dto, @MappingTarget User entity);
 }

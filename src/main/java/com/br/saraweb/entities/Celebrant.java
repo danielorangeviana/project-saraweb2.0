@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.br.saraweb.entities.enums.ReligiousTitle;
+import com.br.saraweb.enums.ReligiousTitle;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;

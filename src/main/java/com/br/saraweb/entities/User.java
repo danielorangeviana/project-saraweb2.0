@@ -1,11 +1,7 @@
 package com.br.saraweb.entities;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "tb_user")
-public class User implements UserDetails {
+public class User {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -67,41 +63,7 @@ public class User implements UserDetails {
 				return true;
 			}
 		}
-		
+
 		return false;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.cpf;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
 	}
 }

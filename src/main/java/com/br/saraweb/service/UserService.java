@@ -1,48 +1,31 @@
 package com.br.saraweb.service;
 
-import java.util.List;
 import java.util.Optional;
 
-import com.br.saraweb.mappers.UserMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.br.saraweb.dto.UserDTO;
 import com.br.saraweb.dto.UserInsertDTO;
 import com.br.saraweb.dto.UserUpdateDTO;
-import com.br.saraweb.entities.Role;
 import com.br.saraweb.entities.User;
-import com.br.saraweb.projections.UserDetailsProjection;
 import com.br.saraweb.repositories.UserRepository;
 import com.br.saraweb.exceptions.DatabaseException;
 import com.br.saraweb.exceptions.ResourceNotFoundException;
+import com.br.saraweb.mappers.UserMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class UserService implements UserDetailsService {
+@RequiredArgsConstructor
+public class UserService {
 
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
-	private final AuthService authService;
 	private final UserMapper userMapper;
-
-	public UserService(UserRepository userRepository,
-					   PasswordEncoder passwordEncoder,
-					   AuthService authService, UserMapper userMapper) {
-		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
-		this.authService = authService;
-		this.userMapper = userMapper;
-	}
 
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
@@ -56,16 +39,10 @@ public class UserService implements UserDetailsService {
 		return userMapper.toDTO(entity);
 	}
 
-	@Transactional(readOnly = true)
-	public UserDTO findLoggedUser() {
-		User entity = authService.authenticated();
-		return userMapper.toDTO(entity);
-	}
-
 	@Transactional
 	public UserDTO insert(UserInsertDTO dto) {
 		User entity = userMapper.toEntity(dto);
-		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity.setPassword(dto.getPassword());
 		User savedEntity = userRepository.save(entity);
 		return userMapper.toDTO(savedEntity);
 	}
@@ -97,21 +74,5 @@ public class UserService implements UserDetailsService {
 		catch (DataIntegrityViolationException exception) {
 			throw new DatabaseException(exception.getMessage());
 		}
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-		List<UserDetailsProjection> result = userRepository.searchUserAndRolesByCpf(username);
-
-		if(result.isEmpty()) throw new UsernameNotFoundException("User not found!");
-
-		User user = new User();
-		user.setCpf(username);
-		user.setPassword(result.get(0).getPassword());
-		result.forEach(projection ->
-				user.addRole(new Role(projection.getRoleId(), projection.getAuthority())));
-
-		return user;
 	}
 }

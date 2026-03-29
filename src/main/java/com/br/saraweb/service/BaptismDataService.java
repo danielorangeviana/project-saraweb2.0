@@ -3,7 +3,6 @@ package com.br.saraweb.service;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,11 +32,11 @@ import jakarta.persistence.EntityNotFoundException;
 @RequiredArgsConstructor
 public class BaptismDataService {
 
-	private BaptismDataRepository repository;
-	private ParentRepository parentRepository;
-	private GodparentRepository godparentRepository;
-	private PageBookRepository pageBookRepository;
-	private CelebrantRepository celebrantRepository;
+	private final BaptismDataRepository repository;
+	private final ParentRepository parentRepository;
+	private final GodparentRepository godparentRepository;
+	private final PageBookRepository pageBookRepository;
+	private final CelebrantRepository celebrantRepository;
 	
 	@Transactional(readOnly = true)
 	public Page<BaptismDataMinDTO> findAllPagedByName(String nameChildren, Pageable pageable) {
