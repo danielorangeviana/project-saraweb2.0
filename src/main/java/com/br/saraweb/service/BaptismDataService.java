@@ -2,6 +2,7 @@ package com.br.saraweb.service;
 
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -29,21 +30,13 @@ import com.br.saraweb.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
+@RequiredArgsConstructor
 public class BaptismDataService {
-	
-	@Autowired
+
 	private BaptismDataRepository repository;
-	
-	@Autowired
 	private ParentRepository parentRepository;
-	
-	@Autowired
 	private GodparentRepository godparentRepository;
-	
-	@Autowired
 	private PageBookRepository pageBookRepository;
-	
-	@Autowired
 	private CelebrantRepository celebrantRepository;
 	
 	@Transactional(readOnly = true)

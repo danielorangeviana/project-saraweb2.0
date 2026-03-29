@@ -3,7 +3,7 @@ package com.br.saraweb.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.br.saraweb.mappers.UserMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,14 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.br.saraweb.dto.RoleDTO;
 import com.br.saraweb.dto.UserDTO;
 import com.br.saraweb.dto.UserInsertDTO;
 import com.br.saraweb.dto.UserUpdateDTO;
 import com.br.saraweb.entities.Role;
 import com.br.saraweb.entities.User;
 import com.br.saraweb.projections.UserDetailsProjection;
-import com.br.saraweb.repositories.RoleRepository;
 import com.br.saraweb.repositories.UserRepository;
 import com.br.saraweb.exceptions.DatabaseException;
 import com.br.saraweb.exceptions.ResourceNotFoundException;
@@ -31,103 +29,89 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService implements UserDetailsService {
-	
-	@Autowired
-	private UserRepository repository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	AuthService authService;
-	
+
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	private final AuthService authService;
+	private final UserMapper userMapper;
+
+	public UserService(UserRepository userRepository,
+					   PasswordEncoder passwordEncoder,
+					   AuthService authService, UserMapper userMapper) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+		this.authService = authService;
+		this.userMapper = userMapper;
+	}
+
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
-		Page<User> list = repository.findAll(pageable);
-		return list.map(x -> new UserDTO(x));
+		return userRepository.findAll(pageable).map(userMapper::toDTO);
 	}
 
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-		Optional<User> obj = repository.findById(id);
+		Optional<User> obj = userRepository.findById(id);
 		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-		return new UserDTO(entity);
+		return userMapper.toDTO(entity);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public UserDTO findLoggedUser() {
 		User entity = authService.authenticated();
-		return new UserDTO(entity);
+		return userMapper.toDTO(entity);
 	}
 
 	@Transactional
 	public UserDTO insert(UserInsertDTO dto) {
-		User entity = new User();
-		copyDtoToEntity(dto, entity);
-		String encodedPassword = passwordEncoder.encode(dto.getPassword());
-		entity.setPassword(encodedPassword);
-		entity = repository.save(entity);
-		return new UserDTO(entity);
+		User entity = userMapper.toEntity(dto);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		User savedEntity = userRepository.save(entity);
+		return userMapper.toDTO(savedEntity);
 	}
 
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
-		if(!repository.existsById(id)) {
+		if(!userRepository.existsById(id)) {
 			throw new ResourceNotFoundException("User not found!");
 		}
 		try {
-			User entity = repository.getReferenceById(id);
-			copyDtoToEntity(dto, entity);
-			entity = repository.save(entity);
-			return new UserDTO(entity);
-		} 
+			User entity = userRepository.getReferenceById(id);
+			userMapper.updateEntityFromDTO(dto, entity);
+			entity = userRepository.save(entity);
+			return userMapper.toDTO(entity);
+		}
 		catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("User not found!");
-		}		
+		}
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
-		if(!repository.existsById(id)) {
+		if(!userRepository.existsById(id)) {
 			throw new ResourceNotFoundException("User not found!");
 		}
 		try {
-			repository.deleteById(id);
+			userRepository.deleteById(id);
 		}
 		catch (DataIntegrityViolationException exception) {
 			throw new DatabaseException(exception.getMessage());
 		}
 	}
-	
-	private void copyDtoToEntity(UserDTO dto, User entity) {
-
-		entity.setName(dto.getName());
-		entity.setCpf(dto.getCpf());
-		entity.setEmail(dto.getEmail());
-		
-		entity.getRoles().clear();
-		for (RoleDTO roleDto : dto.getRoles()) {
-			Role role = roleRepository.getReferenceById(roleDto.getId());
-			entity.getRoles().add(role);
-		}
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		List<UserDetailsProjection> result = repository.searchUserAndRolesByCpf(username);
-		
+
+		List<UserDetailsProjection> result = userRepository.searchUserAndRolesByCpf(username);
+
 		if(result.isEmpty()) throw new UsernameNotFoundException("User not found!");
-		
+
 		User user = new User();
 		user.setCpf(username);
 		user.setPassword(result.get(0).getPassword());
-		result.forEach(projection -> 
-	    user.addRole(new Role(projection.getRoleId(), projection.getAuthority())));
-	    	
+		result.forEach(projection ->
+				user.addRole(new Role(projection.getRoleId(), projection.getAuthority())));
+
 		return user;
 	}
 }
